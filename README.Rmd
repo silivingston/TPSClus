@@ -1,0 +1,78 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# TPSClus
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+`TPSClus` is an R package designed to implmente fuzzy clustering of multivariate longitudinal data using tensor product smoothing splines. The `TPSfit()` function fits the splines to three or more variables that are measured repeatedly over time. The `cluster.fitted()` or `cluster.coefs()` functions can then be used to identify fuzzy clusters in the data. Lastly, the `FKM.glm()` function can be used to generate a generalized linear model for a distal outcome using the fuzzy clusters and other covariates as predictors. A number of plot options are available for visualization of the data and clusters.
+
+## Installation
+
+You can install the development version of TPSClus like so (need to update):
+
+``` r
+devtools::install_github("silivingston/TPSClus", dependencies = TRUE, build_vignettes = TRUE)
+```
+
+## Example
+
+Basic example of flow using built-in simulated dataset:
+
+Fit splines to multivariate data:
+```{r splines}
+library(TPSClus)
+data(TS.sim)
+
+fitsplines2 <- TPSfit(TS.sim, vars=c("Var1", "Var2", "Var3"),
+time="Time", ID="SubjectID", knots_time=c(0, 91, 182, 273, 365),
+     fit_times=c(46, 91, 137, 182, 228, 273, 319))
+```
+
+Run fuzzy clustering algorithm on the smoothed data using 3 clusters:
+```{r clustering}
+clusters1 <- cluster.fitted(fitsplines2, k=3, m=1.3, seed=12345, RS=5, noise=TRUE)
+summary(clusters1)
+```
+
+Plot the mean cluster trajectories:
+```{r plot}
+plot(clusters1, legend_label_size=10)
+```
+
+Fit a GLM using the clusters and other covariates as predictors:
+```{r model}
+model <- FKM.glm(clusters1, TS.sim, y="outcome", covariates=c("x1", "x2"),
+family="binomial")
+summary(model)
+```
+
+Predict the outcome for a new dataset:
+```{r predict}
+data(TS.sim.new)
+predicted <- predict(model, TS.sim.new)
+head(predicted)
+```
+
+<!-- You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/v1/examples>. -->
+
+<!-- You can also embed plots, for example: -->
+
+<!-- ```{r pressure, echo = FALSE} -->
+<!-- plot(pressure) -->
+<!-- ``` -->
+
+<!-- In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN. -->

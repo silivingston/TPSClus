@@ -1,2 +1,11 @@
 ^TPSClus\.Rproj$
 ^\.Rproj\.user$
+^LICENSE\.md$
+^data-raw$
+^doc$
+^Meta$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^README\.Rmd$
+^\.github$
