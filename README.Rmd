@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-`TPSClus` is an R package designed to implmente fuzzy clustering of multivariate longitudinal data using tensor product smoothing splines. The `TPSfit()` function fits the splines to three or more variables that are measured repeatedly over time. The `cluster.fitted()` or `cluster.coefs()` functions can then be used to identify fuzzy clusters in the data. Lastly, the `FKM.glm()` function can be used to generate a generalized linear model for a distal outcome using the fuzzy clusters and other covariates as predictors. A number of plot options are available for visualization of the data and clusters.
+`TPSClus` is an R package designed to implement fuzzy clustering of multivariate longitudinal data using tensor product smoothing splines. The `TPSfit()` function fits the splines to three or more variables that are measured repeatedly over time. The `cluster.fitted()` or `cluster.coefs()` functions can then be used to identify fuzzy clusters in the data. Lastly, the `FKM.glm()` function can be used to generate a generalized linear model for a distal outcome using the fuzzy clusters and other covariates as predictors. A number of plot options are available for visualization of the data and clusters.
 
 ## Installation
 

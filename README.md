@@ -6,7 +6,7 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-`TPSClus` is an R package designed to implmente fuzzy clustering of
+`TPSClus` is an R package designed to implement fuzzy clustering of
 multivariate longitudinal data using tensor product smoothing splines.
 The `TPSfit()` function fits the splines to three or more variables that
 are measured repeatedly over time. The `cluster.fitted()` or
@@ -160,4 +160,3 @@ head(predicted)
 <!-- plot(pressure) -->
 <!-- ``` -->
 <!-- In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN. -->
-# silivingston.github.io
