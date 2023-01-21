@@ -12,6 +12,7 @@ Functions for fitting tensor-product splines to multivariate longitudinal data, 
 Useful links:
 \itemize{
   \item \url{https://silivingston.github.io/TPSClus/}
+  \item \url{https://silivingston.github.io/}
 }
 
 }

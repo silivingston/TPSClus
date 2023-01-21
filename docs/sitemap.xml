@@ -1,69 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://silivingston.github.io/404.html</loc>
   </url>
   <url>
-    <loc>/articles/demo.html</loc>
+    <loc>https://silivingston.github.io/articles/demo.html</loc>
   </url>
   <url>
-    <loc>/articles/index.html</loc>
+    <loc>https://silivingston.github.io/articles/index.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://silivingston.github.io/authors.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://silivingston.github.io/index.html</loc>
   </url>
   <url>
-    <loc>/LICENSE.html</loc>
+    <loc>https://silivingston.github.io/LICENSE.html</loc>
   </url>
   <url>
-    <loc>/news/index.html</loc>
+    <loc>https://silivingston.github.io/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/cluster.coefs.html</loc>
+    <loc>https://silivingston.github.io/reference/cluster.coefs.html</loc>
   </url>
   <url>
-    <loc>/reference/cluster.fitted.html</loc>
+    <loc>https://silivingston.github.io/reference/cluster.fitted.html</loc>
   </url>
   <url>
-    <loc>/reference/FKM.glm.html</loc>
+    <loc>https://silivingston.github.io/reference/FKM.glm.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://silivingston.github.io/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/pipe.html</loc>
+    <loc>https://silivingston.github.io/reference/pipe.html</loc>
   </url>
   <url>
-    <loc>/reference/plot.FKM.glm.html</loc>
+    <loc>https://silivingston.github.io/reference/plot.FKM.glm.html</loc>
   </url>
   <url>
-    <loc>/reference/plot.FKM.predicted.html</loc>
+    <loc>https://silivingston.github.io/reference/plot.FKM.predicted.html</loc>
   </url>
   <url>
-    <loc>/reference/plot.FKM.TPS.html</loc>
+    <loc>https://silivingston.github.io/reference/plot.FKM.TPS.html</loc>
   </url>
   <url>
-    <loc>/reference/plot.TPSfit.html</loc>
+    <loc>https://silivingston.github.io/reference/plot.TPSfit.html</loc>
   </url>
   <url>
-    <loc>/reference/predict.FKM.glm.html</loc>
+    <loc>https://silivingston.github.io/reference/predict.FKM.glm.html</loc>
   </url>
   <url>
-    <loc>/reference/predict.FKM.TPS.html</loc>
+    <loc>https://silivingston.github.io/reference/predict.FKM.TPS.html</loc>
   </url>
   <url>
-    <loc>/reference/TPSClus-package.html</loc>
+    <loc>https://silivingston.github.io/reference/TPSClus-package.html</loc>
   </url>
   <url>
-    <loc>/reference/TPSfit.html</loc>
+    <loc>https://silivingston.github.io/reference/TPSfit.html</loc>
   </url>
   <url>
-    <loc>/reference/TS.sim.html</loc>
+    <loc>https://silivingston.github.io/reference/TS.sim.html</loc>
   </url>
   <url>
-    <loc>/reference/TS.sim.new.html</loc>
+    <loc>https://silivingston.github.io/reference/TS.sim.new.html</loc>
   </url>
 </urlset>

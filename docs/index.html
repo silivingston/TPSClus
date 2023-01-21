@@ -64,7 +64,7 @@
 </h1></div>
 <!-- badges: start -->
 <!-- badges: end -->
-<p><code>TPSClus</code> is an R package designed to implmente fuzzy clustering of multivariate longitudinal data using tensor product smoothing splines. The <code><a href="reference/TPSfit.html">TPSfit()</a></code> function fits the splines to three or more variables that are measured repeatedly over time. The <code><a href="reference/cluster.fitted.html">cluster.fitted()</a></code> or <code><a href="reference/cluster.coefs.html">cluster.coefs()</a></code> functions can then be used to identify fuzzy clusters in the data. Lastly, the <code><a href="reference/FKM.glm.html">FKM.glm()</a></code> function can be used to generate a generalized linear model for a distal outcome using the fuzzy clusters and other covariates as predictors. A number of plot options are available for visualization of the data and clusters.</p>
+<p><code>TPSClus</code> is an R package designed to implement fuzzy clustering of multivariate longitudinal data using tensor product smoothing splines. The <code><a href="reference/TPSfit.html">TPSfit()</a></code> function fits the splines to three or more variables that are measured repeatedly over time. The <code><a href="reference/cluster.fitted.html">cluster.fitted()</a></code> or <code><a href="reference/cluster.coefs.html">cluster.coefs()</a></code> functions can then be used to identify fuzzy clusters in the data. Lastly, the <code><a href="reference/FKM.glm.html">FKM.glm()</a></code> function can be used to generate a generalized linear model for a distal outcome using the fuzzy clusters and other covariates as predictors. A number of plot options are available for visualization of the data and clusters.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -78,7 +78,7 @@
 <p>Basic example of flow using built-in simulated dataset:</p>
 <p>Fit splines to multivariate data:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://silivingston.github.io/TPSClus/" class="external-link">TPSClus</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://silivingston.github.io/TPSClus/">TPSClus</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">TS.sim</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">fitsplines2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/TPSfit.html">TPSfit</a></span><span class="op">(</span><span class="va">TS.sim</span>, vars<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Var1"</span>, <span class="st">"Var2"</span>, <span class="st">"Var3"</span><span class="op">)</span>,</span>
