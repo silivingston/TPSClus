@@ -2,12 +2,12 @@
 % Please edit documentation in R/GLMfunctions.R
 \name{FKM.glm}
 \alias{FKM.glm}
-\title{Fit a generalized linear model (GLM) using clusters a predictors}
+\title{Fit a generalized linear model (GLM) using clusters as predictors}
 \usage{
 FKM.glm(FKM_object, data, y, covariates, refclus = 1, family = "gaussian", ...)
 }
 \arguments{
-\item{FKM_object}{An object of class \code{FKM.TPS} output from \code{\link[=cluster.fitted]{cluster.fitted()}}
+\item{FKM_object}{An object of class '\code{FKM.TPS}' output from \code{\link[=cluster.fitted]{cluster.fitted()}}
 or \code{\link[=cluster.coefs]{cluster.coefs()}}.}
 
 \item{data}{A data frame with the same subjects used for spline-fitting and
@@ -26,21 +26,22 @@ identify the noise cluster as the reference cluster.}
 \item{family}{A description of the error distribution and link function to be
 used in the model.}
 
-\item{...}{Additional arguments for the \code{\link{glm}} function.}
+\item{...}{Additional arguments for the \code{\link[=glm]{glm()}} function.}
 }
 \value{
-An object of class \code{FKM.glm} containing the following components:
+An object of class '\code{FKM.glm}' containing the following components:
 \itemize{
-\item \code{FKM_object} The inputted object of class \code{FKM.TPS}.
-\item \code{model_data} A data frame containing the variables used in the model, including degree of cluster membership.
-\item \code{formula} The formula used in the model.
-\item \code{family} The family call used in the model.
-\item \code{model_full} The GLM model using clusters as predictors and any additional
+\item \code{FKM_object } The inputted object of class '\code{FKM.TPS}'.
+\item \code{model_data } A data frame containing the variables used in the model, including degree of cluster membership.
+\item \code{formula } The formula used in the model.
+\item \code{family } The family call used in the model.
+\item \code{covariates} The covariates that were included.
+\item \code{model_full } The GLM model using clusters as predictors and any additional
 covariates of interest.
-\item \code{model_noclusters} The GLM model using the covariates of interest but no
+\item \code{model_noclusters } The GLM model using the covariates of interest but no
 clusters.
-\item \code{anova} ANOVA comparing the models with and without clusters as predictors.
-\item \code{anova_pval} P-value for the ANOVA comparing the models with and without
+\item \code{anova } ANOVA comparing the models with and without clusters as predictors.
+\item \code{anova_pval } P-value for the ANOVA comparing the models with and without
 clusters as predictors.
 }
 }
@@ -49,7 +50,7 @@ clusters as predictors.
 \code{\link[=cluster.fitted]{cluster.fitted()}} or \code{\link[=cluster.coefs]{cluster.coefs()}} as predictors, along with additional covariates.
 }
 \details{
-\code{FKM.glm()} applies the \code{glm} function to fit a generalized linear model
+\code{FKM.glm()} applies the \code{\link[=glm]{glm()}} function to fit a generalized linear model
 using clusters as predictors. Clusters are obtained using \code{\link[=cluster.fitted]{cluster.fitted()}}
 or \code{\link[=cluster.coefs]{cluster.coefs()}}, and the output object of class \code{FKM.TPS} is input into
 the \code{FKM.glm()} function, along with a dataset containing the output variable
@@ -58,7 +59,6 @@ and additional covariates of interest. Clusters are included using the
 each individual to account for uncertainty in the cluster assignment.
 }
 \examples{
-library(tidyr); library(dplyr); library(mgcv); library(fclust)
 data(TS.sim)
 
 fitsplines <- TPSfit(TS.sim, vars=c("Var1", "Var2", "Var3"), time="Time",
@@ -73,5 +73,5 @@ model$anova_pval
 
 }
 \seealso{
-The glm function: \code{\link{glm}}
+The glm function: \code{\link[=glm]{glm()}}
 }
