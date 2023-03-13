@@ -12,22 +12,22 @@ measured over time.}
 
 \item{time}{Name of the time variable (e.g. "Time").}
 
-\item{vars}{A character vector of at least 3 variables of interest.}
+\item{vars}{A character vector containing the variables of interest.}
 
 \item{ID}{Name of the subject ID variable.}
 
 \item{knots_time}{A numeric vector of knots for spline-fitting the time
-variable. Must supply knots_time or kt.}
+variable. Must supply \code{knots_time} or \code{kt}.}
 
 \item{kt}{Number of evenly spaced knots for spline-fitting the time variable
-if knots_time is not given.}
+if \code{knots_time} is not given.}
 
 \item{fit_times}{Optional vector for times where fitted values will be
-calculated. If fit_times and n_fit_times are not given, fitted values are
+calculated. If \code{fit_times} and \code{n_fit_times} are not given, fitted values are
 calculated at knots.}
 
 \item{n_fit_times}{Number of evenly spaced times where fitted values will be
-calculated if fit_times are not given.}
+calculated if \code{fit_times }are not given.}
 
 \item{st}{Logical expression indicating whether each variable should be
 standardized.}
@@ -35,41 +35,41 @@ standardized.}
 \value{
 An object of class '\code{TPSfit}' containing the following components: \cr
 \itemize{
-\item \code{GAMsfitted} A data frame containing the fitted spline values. \cr
-\item \code{GAMscoef} A data frame containing the tensor product spline coefficients \cr
-\item \code{data_long} A data frame containing data in long format for both time and
+\item \code{GAMsfitted }  A data frame containing the fitted spline values. \cr
+\item \code{GAMscoef }  A data frame containing the tensor product spline coefficients \cr
+\item \code{data_long }  A data frame containing data in long format for both time and
 variable \cr
-\item \code{knots} A list of two vectors containing the variable and time knots \cr
-\item \code{indiv_means} A list containing a data frame of individual means for each of
+\item \code{knots }  A list of two vectors containing the variable and time knots \cr
+\item \code{indiv_means }  A list containing a data frame of individual means for each of
 the variables of interest \cr
-\item \code{GAMs} A list containing the generalized additive models for fitting splines
+\item \code{GAMs }  A list containing the generalized additive models for fitting splines
 on each individual \cr
-\item \code{nsubject} The number of subjects in the dataset \cr
-\item \code{IDmatch} A data frame matching the original subject ID and new consecutive
+\item \code{nsubject }  The number of subjects in the dataset \cr
+\item \code{IDmatch }  A data frame matching the original subject ID and new consecutive
 ID numbers \cr
-\item \code{error_subjects} A vector of individuals that encountered errors in the
+\item \code{error_subjects }  A vector of individuals that encountered errors in the
 spline-fitting process \cr
 }
 }
 \description{
 \code{TPSfit()} is used to fit multidimensional tensor product splines to
-longitudinal data with three or more variable of interest prior to
-implementation of a clustering algorithm.
+longitudinal data with three or more variables of interest prior to
+implementation of a clustering algorithm. Data with one or two variables will
+be fit using cubic regression splines to each variable individually.
 }
 \details{
-\code{TPSfit()} employs package \code{mgcv} to fit a tensor product splines to each
+\code{TPSfit()} employs package \pkg{mgcv} to fit a tensor product splines to each
 individual using a generalized additive model. The fitted splines are
 two-dimensional, with one dimension being the variable identifier and the
-other being time. An adequate number of observed time points are required for
-each individual, and the number of knots should be less than the smallest
-number of time points. If splines are unable to be fit for an individual, an
-error message will be shown, but splines will be fit for remaining
-individuals. A vector of identifiers for individuals with errors is included
-in the output as \code{error_subjects}, and these subjects are not included in the
-output \code{GAMSsfitted} or \code{GAMscoef}.
+other being time. An adequate number of observed time points (greater than the
+number of knots) are required for each individual, and the number of knots
+should be less than the smallest number of time points. If splines are unable
+to be fit for an individual, an error message will be shown, but splines will
+be fit for remaining individuals. A vector of identifiers for individuals with
+errors is included in the output as \code{error_subjects}, and these subjects are
+not included in the output \code{GAMSsfitted} or \code{GAMscoef}.
 }
 \examples{
-library(tidyr); library(dplyr); library(mgcv)
 data(TS.sim)
 
 fitsplines <- TPSfit(TS.sim, vars=c("Var1", "Var2", "Var3"), time="Time",
