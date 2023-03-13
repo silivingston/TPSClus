@@ -7,7 +7,7 @@
 \method{predict}{FKM.glm}(object, newdata, ...)
 }
 \arguments{
-\item{object}{An object of class \code{FKM.glm} found by modeling an
+\item{object}{An object of class '\code{FKM.glm}' found by modeling an
 outcome based on cluster membership degrees.}
 
 \item{newdata}{A new data containing the same variables clustered on and used
@@ -38,6 +38,8 @@ family="binomial")
 
 # Get new dataset
 data(TS.sim.new)
+
+# Predict outcome for new dataset
 predicted <- predict(model, TS.sim.new)
 
 }
