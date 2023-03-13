@@ -1,9 +1,9 @@
-#' Fit a generalized linear model (GLM) using clusters a predictors
+#' Fit a generalized linear model (GLM) using clusters as predictors
 #'
 #' `FKM.glm()` fits a generalized linear model (GLM) using clusters output from
 #' [cluster.fitted()] or [cluster.coefs()] as predictors, along with additional covariates.
 #'
-#' `FKM.glm()` applies the `glm` function to fit a generalized linear model
+#' `FKM.glm()` applies the [glm()] function to fit a generalized linear model
 #' using clusters as predictors. Clusters are obtained using [cluster.fitted()]
 #' or [cluster.coefs()], and the output object of class `FKM.TPS` is input into
 #' the `FKM.glm()` function, along with a dataset containing the output variable
@@ -11,7 +11,7 @@
 #' "partial assignment" method that employs the degree of cluster membership for
 #' each individual to account for uncertainty in the cluster assignment.
 #'
-#' @param FKM_object An object of class `FKM.TPS` output from [cluster.fitted()]
+#' @param FKM_object An object of class '`FKM.TPS`' output from [cluster.fitted()]
 #'   or [cluster.coefs()].
 #' @param data A data frame with the same subjects used for spline-fitting and
 #'   clustering that includes an outcome variable of interest and optional
@@ -24,28 +24,28 @@
 #'   identify the noise cluster as the reference cluster.
 #' @param family A description of the error distribution and link function to be
 #'   used in the model.
-#' @param ... Additional arguments for the \code{\link{glm}} function.
+#' @param ... Additional arguments for the [glm()] function.
 #'
-#' @returns An object of class `FKM.glm` containing the following components:
-#' * `FKM_object` The inputted object of class `FKM.TPS`.
-#' * `model_data` A data frame containing the variables used in the model, including degree of cluster membership.
-#' * `formula` The formula used in the model.
-#' * `family` The family call used in the model.
-#' * `model_full` The GLM model using clusters as predictors and any additional
+#' @returns An object of class '`FKM.glm`' containing the following components:
+#' * `FKM_object ` The inputted object of class '`FKM.TPS`'.
+#' * `model_data ` A data frame containing the variables used in the model, including degree of cluster membership.
+#' * `formula ` The formula used in the model.
+#' * `family ` The family call used in the model.
+#' * `covariates` The covariates that were included.
+#' * `model_full ` The GLM model using clusters as predictors and any additional
 #'    covariates of interest.
-#' * `model_noclusters` The GLM model using the covariates of interest but no
+#' * `model_noclusters ` The GLM model using the covariates of interest but no
 #'    clusters.
-#' * `anova` ANOVA comparing the models with and without clusters as predictors.
-#' * `anova_pval` P-value for the ANOVA comparing the models with and without
+#' * `anova ` ANOVA comparing the models with and without clusters as predictors.
+#' * `anova_pval ` P-value for the ANOVA comparing the models with and without
 #'    clusters as predictors.
 #'
 #' @export
 #'
 #' @seealso
-#' The glm function: \code{\link{glm}}
+#' The glm function: [glm()]
 #'
 #' @examples
-#' library(tidyr); library(dplyr); library(mgcv); library(fclust)
 #' data(TS.sim)
 #'
 #' fitsplines <- TPSfit(TS.sim, vars=c("Var1", "Var2", "Var3"), time="Time",
@@ -107,7 +107,7 @@ FKM.glm <- function(FKM_object, data, y, covariates, refclus=1, family="gaussian
   test <- anova(m1, m2, test="Chisq")
   pval <- test$`Pr(>Chi)`[2]
 
-  output <- list(FKM_object=FKM_object, model_data=data3, FKM_object=FKM_object, formula=f1,
+  output <- list(FKM_object=FKM_object, model_data=data3, formula=f1,
                  family=family,
                  covariates=covariates,
                  model_full= m1, model_noclusters=m2,
@@ -129,6 +129,7 @@ print.FKM.glm <- function(x, ...) {
   cat("\n")
   cat("ANOVA chi-square p-value for significance of clusters in model:\n")
   cat(x$anova_pval)
+  cat("\n")
 }
 
 
@@ -143,6 +144,7 @@ summary.FKM.glm <- function(object, ...) {
   cat("\n")
   cat("ANOVA chi-square p-value for significance of clusters in model:\n")
   cat(object$anova_pval)
+  cat("\n")
 }
 
 
@@ -153,7 +155,7 @@ summary.FKM.glm <- function(object, ...) {
 #' tensor-product splines to the new dataset and then identifying degree of
 #' cluster membership for the previously identified clusters.
 #'
-#' @param object An object of class `FKM.glm` found by modeling an
+#' @param object An object of class '`FKM.glm`' found by modeling an
 #'   outcome based on cluster membership degrees.
 #' @param newdata A new data containing the same variables clustered on and used
 #'   as covariates in the model.
@@ -177,6 +179,8 @@ summary.FKM.glm <- function(object, ...) {
 #'
 #' # Get new dataset
 #' data(TS.sim.new)
+#'
+#' # Predict outcome for new dataset
 #' predicted <- predict(model, TS.sim.new)
 #'
 predict.FKM.glm <- function(object, newdata, ...) {
