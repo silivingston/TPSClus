@@ -2,12 +2,12 @@
 % Please edit documentation in R/plotfunctions.R
 \name{plot.FKM.glm}
 \alias{plot.FKM.glm}
-\title{Plot glm that uses clusters as predictors}
+\title{Plot a GLM that uses clusters as predictors}
 \usage{
 \method{plot}{FKM.glm}(x, ...)
 }
 \arguments{
-\item{x}{The output object of class \code{FKM.glm}.}
+\item{x}{The output object of class '\code{FKM.glm}'.}
 
 \item{...}{Additional arguments.}
 }
