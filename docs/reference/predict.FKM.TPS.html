@@ -61,7 +61,7 @@ new subjects.</p>
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>object</dt>
-<dd><p>An object of class <code>FKM.TPS</code> of previously identified
+<dd><p>An object of class '<code>FKM.TPS</code>' of previously identified
 clusters.</p></dd>
 
 
@@ -78,26 +78,25 @@ previously used for clustering.</p></dd>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>An object of class 'FKM.predicted' containing the following components:</p><ul><li><p><code>predicted_U</code> A data frame containing the subjects with their degree of cluster
+<p>An object of class '<code>FKM.predicted</code>' containing the following components:</p><ul><li><p><code>predicted_U </code> A data frame containing the subjects with their degree of cluster
 membership and modal cluster assignment.</p></li>
-<li><p><code>U</code> The degrees of cluster membership for each subject.</p></li>
-<li><p><code>Umax</code> The modal class assignment for each subject.</p></li>
-<li><p><code>wide_data</code> A data frame containing the values that were clustered on.</p></li>
-<li><p><code>IDmatch</code> A data frame matching the original subject ID variable to a new
+<li><p><code>U </code> The degrees of cluster membership for each subject.</p></li>
+<li><p><code>Umax </code> The modal class assignment for each subject.</p></li>
+<li><p><code>wide_data </code> A data frame containing the values that were clustered on.</p></li>
+<li><p><code>IDmatch </code> A data frame matching the original subject ID variable to a new
 consecutive subject ID.</p></li>
-<li><p><code>TPSdata</code> An object of class <code>TPSfit</code> containing the fitted splines for the
+<li><p><code>TPSdata </code> An object of class '<code>TPSfit</code>' containing the fitted splines for the
 new subjects.</p></li>
-<li><p><code>FKM_TPS</code> The inputted object of class <code>FKM.TPS</code>.</p></li>
-<li><p><code>noise</code> Logical expression indicating whether a noise cluster is included for
+<li><p><code>FKM_TPS </code> The inputted object of class '<code>FKM.TPS</code>'.</p></li>
+<li><p><code>noise </code> Logical expression indicating whether a noise cluster is included for
 outliers.</p></li>
-<li><p><code>k</code> The number of clusters.</p></li>
-<li><p><code>m</code> The fuzziness parameter.</p></li>
+<li><p><code>k </code> The number of clusters.</p></li>
+<li><p><code>m </code> The fuzziness parameter.</p></li>
 </ul></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>; <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span>; <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">fclust</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">TS.sim</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">TS.sim</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">fitsplines</span> <span class="op">&lt;-</span> <span class="fu"><a href="TPSfit.html">TPSfit</a></span><span class="op">(</span><span class="va">TS.sim</span>, vars<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Var1"</span>, <span class="st">"Var2"</span>, <span class="st">"Var3"</span><span class="op">)</span>, time<span class="op">=</span><span class="st">"Time"</span>,</span></span>
 <span class="r-in"><span>     ID<span class="op">=</span><span class="st">"SubjectID"</span>, knots_time<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">91</span>, <span class="fl">182</span>, <span class="fl">273</span>, <span class="fl">365</span><span class="op">)</span>, n_fit_times<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></span>

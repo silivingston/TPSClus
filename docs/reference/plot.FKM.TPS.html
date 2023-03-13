@@ -75,7 +75,7 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>x</dt>
-<dd><p>A object of class <code>FKM.TPS</code> output from <code>cluster.fitted</code> or <code>cluster.coefs</code></p></dd>
+<dd><p>A object of class '<code>FKM.TPS</code>' output from <code><a href="cluster.fitted.html">cluster.fitted()</a></code> or <code><a href="cluster.coefs.html">cluster.coefs()</a></code></p></dd>
 
 
 <dt>center</dt>
@@ -123,7 +123,7 @@
 
 
 <dt>type</dt>
-<dd><p>Type of plot to produce. Options are "mean", "smooth", "smooth_grid", "raw", "raw_grid", and "all".</p></dd>
+<dd><p>Type of plot to produce. Options are <code>"mean"</code>, <code>"smooth"</code>, <code>"smooth_grid"</code>, <code>"raw"</code>, <code>"raw_grid"</code>, and <code>"all"</code>.</p></dd>
 
 
 <dt>...</dt>
@@ -139,8 +139,7 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span>; <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>; <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">mgcv</span><span class="op">)</span>; <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">fclust</span><span class="op">)</span>; <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">TS.sim</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">TS.sim</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">fitsplines</span> <span class="op">&lt;-</span> <span class="fu"><a href="TPSfit.html">TPSfit</a></span><span class="op">(</span><span class="va">TS.sim</span>, vars<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Var1"</span>, <span class="st">"Var2"</span>, <span class="st">"Var3"</span><span class="op">)</span>, time<span class="op">=</span><span class="st">"Time"</span>,</span></span>
 <span class="r-in"><span>     ID<span class="op">=</span><span class="st">"SubjectID"</span>, knots_time<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">91</span>, <span class="fl">182</span>, <span class="fl">273</span>, <span class="fl">365</span><span class="op">)</span>, n_fit_times<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></span>

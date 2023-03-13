@@ -83,18 +83,19 @@ information with repeated measures of multiple lab values over time.
 Such longitudinal datasets have become increasingly common as medical
 records are computerized, offering opportunities in clinical research to
 examine biomarkers as they change over time rather than at one single
-timepoint. A common approach to analyzing these trajectories of lab
-values is to identify subgroups of patients with similar
-characteristics, and to further assess association between group
-membership and future outcomes <span class="citation">(Aghabozorgi,
-Shirkhorshidi, and Wah 2015; Nylund-Gibson, Grimm, and Masyn
-2019)</span>. Two general methods are often employed to classify
-trajectories: latent trajectory methods such as growth mixture modeling
-(GMM) and group-based trajectory modeling (GBTM) <span class="citation">(Nest et al. 2020)</span>, and unsupervised machine
-learning methods such as k-means clustering. While there have been
-extensive applications where longitudinal data is grouped based on the
-trajectory of a single biomarker, there are fewer studies that focus on
-grouping multivariate trajectory data.</p>
+timepoint. A common approach to analyzing trajectories of lab values is
+to identify subgroups of patients with similar characteristics, and to
+further assess association between group membership and distal outcomes
+<span class="citation">(Aghabozorgi, Shirkhorshidi, and Wah 2015;
+Nylund-Gibson, Grimm, and Masyn 2019)</span>. Two general methods are
+often employed to classify trajectories: latent trajectory methods such
+as growth mixture modeling (GMM) and group-based trajectory modeling
+(GBTM) <span class="citation">(Nest et al. 2020)</span>, and
+unsupervised machine learning methods such as k-means clustering. While
+there have been extensive applications where longitudinal data is
+grouped based on the trajectory of a single biomarker, there are fewer
+studies that focus on grouping multivariate trajectories of correlated
+variables.</p>
 <p>Latent trajectory methods assume an underlying latent grouping
 variable such as “severity of disease” that is manifest in the observed
 variables. The posterior probability of class membership is estimated
@@ -105,10 +106,12 @@ using random effects <span class="citation">(Muthen and Muthen
 mixture models with various extensions, including the
 <code>multlcmm()</code> function for multivariate trajectories. GBTM, on
 the other hand, does not use random effects to capture individual
-differences and assumes equal variance across all time and classes <span class="citation">(Herle et al. 2020)</span>. The <code>lcmm</code>
-package can also be used for GBTM, as well as PROC TRAJ <span class="citation">Jones and Nagin (2007)</span>] in SAS <span class="citation">( Institute Inc. 2016)</span>. A multivariate extension
-has also been developed for PROC TRAJ. These methods provide a valuable
-tool, but they require distributional assumptions and can have high
+differences and assumes equal variance across all times and classes
+<span class="citation">(Herle et al. 2020)</span>. GBTM is also
+implemented in the <code>lcmm</code> package, as well as in PROC TRAJ
+<span class="citation">Jones and Nagin (2007)</span>] in SAS <span class="citation">( Institute Inc. 2016)</span>. A multivariate extension
+has also been developed for PROC TRAJ. These methods provide valuable
+tools, but they require distributional assumptions and can have high
 computational costs (particularly GMMs) and potential convergence
 issues, especially when applied to large datasets or datasets with
 outliers <span class="citation">(Den Teuling, Pauws, and Heuvel
@@ -117,34 +120,35 @@ outliers <span class="citation">(Den Teuling, Pauws, and Heuvel
 trajectory data. These algorithms, such as k-means, k-medoids, and
 hierarchical clustering, have a lower computational cost compared to
 methods such as GMM, but they require that data be measured at the same
-time points for each individual. This feature is rarely found in
-clinical datasets, so a pre-processing step is sometimes implemented,
-where trajectories are estimated using splines, and the clustering
-algorithms are applied to spline basis coefficients or fitted spline
-values <span class="citation">Abraham et al. (2003)</span>; <span class="citation">D’Urso et al. (2021)</span>]. Smoothing splines offer
-the additional advantage of noise and data reduction. A number of
-multivariate clustering methods have been proposed, including clustering
-on p-values from hypothesis tests for the difference between
-autoregressive parameter estimates <span class="citation">(Maharaj
-1999)</span>, using principal components analysis to calculate a degree
-of similarity , and wavelet analysis <span class="citation">(D’Urso and
-Maharaj 2012)</span>. A number of R packages have been developed to
-cluster trajectory data. The package <code>traj</code> <span class="citation">(Sylvestre et al. 2006; Leffondree et al. 2004)</span>
-implements a stepwise method where 24 change indices are computed to
-assess different aspects of the longitudinal pattern, then a principal
-components analysis is used to determine the most important features,
-and lastly k-means clustering in conducted on the change indices. The
-<code>kml</code> R package <span class="citation">(Genolini et al.
-2015)</span> utilizes k-means clustering on trajectory data with
-imputation methods available for missing data. It has been extended with
-the <code>kml3d</code> package <span class="citation">(Genolini et al.
-2015)</span>, which clusters based on two trajectories. A recent paper
-comparing <code>traj</code>, <code>kml</code>, and <code>lcmm</code>
-found that <code>kml</code> showed the best clustering accuracy, cluster
-separation, and stability <span class="citation">(Verboon and Pat El
-2022)</span>. This indicates that non-model-based methods such as
-k-means have the potential to work as well or better than more complex
-and computationally costly methods such as GMM.</p>
+timepoints for each individual if the clustering is done on raw data.
+This feature is rarely found in clinical datasets, so a pre-processing
+step is sometimes implemented, where trajectories are estimated using
+splines, and the clustering algorithms are applied to spline basis
+coefficients or fitted spline values <span class="citation">Abraham et
+al. (2003)</span>; <span class="citation">D’Urso et al. (2021)</span>].
+Smoothing splines offer the additional advantage of noise and data
+reduction. A number of multivariate clustering methods have been
+proposed, including clustering on p-values from hypothesis tests for the
+difference between autoregressive parameter estimates <span class="citation">(Maharaj 1999)</span>, using principal components
+analysis to calculate a degree of similarity , and wavelet analysis
+<span class="citation">(D’Urso and Maharaj 2012)</span>. A number of R
+packages have been developed to cluster trajectory data. The package
+<code>traj</code> <span class="citation">(Sylvestre et al. 2006;
+Leffondree et al. 2004)</span> implements a stepwise method where 24
+change indices are computed to assess different aspects of the
+longitudinal pattern, then a principal components analysis is used to
+determine the most important features, and lastly k-means clustering is
+conducted on the change indices. The <code>kml</code> R package <span class="citation">(Genolini et al. 2015)</span> utilizes k-means
+clustering on trajectory data with imputation methods available for
+missing data. It has been extended with the <code>kml3d</code> package
+<span class="citation">(Genolini et al. 2015)</span>, which clusters
+based on two trajectories. A recent paper comparing <code>traj</code>,
+<code>kml</code>, and <code>lcmm</code> found that <code>kml</code>
+showed the best clustering accuracy, cluster separation, and stability
+<span class="citation">(Verboon and Pat El 2022)</span>. This indicates
+that non-model-based methods such as k-means have the potential to work
+as well or better than more complex and computationally costly methods
+such as GMM.</p>
 <p>The <code>TPSClus</code> package utilizes non-model-based methods to
 efficiently identify clusters in datasets with three or more trajectory
 variables of interest, with the efficiency to handle large datasets such
@@ -175,8 +179,8 @@ Section 5 concludes and summarizes.</p>
 <h2 id="smoothing-multivariate-longitudinal-data">2. Smoothing multivariate longitudinal data<a class="anchor" aria-label="anchor" href="#smoothing-multivariate-longitudinal-data"></a>
 </h2>
 <p>In most clinical databases where measurements are taken over time, it
-is rare that all individuals are measured at the same time points or
-with the same frequency. As a result, a pre-processing step must be
+is rare that all individuals are measured at the same timepoints or with
+the same frequency. As a result, a pre-processing step must be
 implemented prior to applying a partitional clustering algorithm such as
 k-mean, k-medoids, or hierarchical clustering. One common approach is
 the use of smoothing splines <span class="citation">(Abraham et al.
@@ -189,8 +193,7 @@ using multidimensional tensor product smoothing splines.</p>
 <h3 id="data-structure">2.1 Data structure<a class="anchor" aria-label="anchor" href="#data-structure"></a>
 </h3>
 <p>A multivariate time series can be structured as a three-dimensional
-array in the form subjects <span class="math inline">\(\times\)</span>
-variables <span class="math inline">\(\times\)</span> times <span class="citation">(D’Urso, De Giovanni, and Massari 2018; D’Urso
+array in the form of subjects <span class="math inline">\(\times\)</span> variables <span class="math inline">\(\times\)</span> times <span class="citation">(D’Urso, De Giovanni, and Massari 2018; D’Urso
 2000)</span>. The trajectories for a single individual <span class="math inline">\(\mathbf{Y}_{i}=\{y_{izt}:z=1 \dots Z; t=1 \dots
 T_{i}\}\)</span>, where <span class="math inline">\(Z\)</span> is the
 number of variables and <span class="math inline">\(T_i\)</span> is the
@@ -223,31 +226,32 @@ detail by <span class="citation">(S. N. Wood 2017; Simon N. Wood
 2006)</span>, is to begin with marginal smooths of the covariates of
 interest, in this case the variable and the time. A tensor product is
 then used to create a smooth of multiple variables from these marginal
-smooths. Here we have two covariates (variable and time), <span class="math inline">\(z\)</span> and <span class="math inline">\(t\)</span>. A low-rank base can be chosen for
-each, representing the smooth function of each covariate, <span class="math inline">\(f_z\)</span> and <span class="math inline">\(f_t\)</span>: <span class="math display">\[f_{z}(z)= \sum_{j=1}^{J} \alpha_j a_j(z)
+smooths. Here we have two covariates, <span class="math inline">\(z\)</span> (variable) and <span class="math inline">\(t\)</span> (time). A low-rank base can be chosen
+for each, representing the smooth function of each covariate, <span class="math inline">\(f_z\)</span> and <span class="math inline">\(f_t\)</span>: <span class="math display">\[f_{z}(z)= \sum_{j=1}^{J} \alpha_j a_j(z)
   \quad\mathrm{and}\quad
-  f_{t}(t)= \sum_{k=1}^{K} \alpha_k a_k(t)\]</span> where <span class="math inline">\(\alpha_j\)</span> and <span class="math inline">\(\delta_k\)</span> are parameters, <span class="math inline">\(a_{j}(z)\)</span> and <span class="math inline">\(d_{k}(t)\)</span> are the basis functions, and
+  f_{t}(t)= \sum_{k=1}^{K} \beta_k b_k(t)\]</span> where <span class="math inline">\(\alpha_j\)</span> and <span class="math inline">\(\beta_k\)</span> are parameters, <span class="math inline">\(a_{j}(z)\)</span> and <span class="math inline">\(b_{k}(t)\)</span> are the basis functions, and
 <span class="math inline">\(J\)</span> and <span class="math inline">\(K\)</span> are the corresponding number of basis
 functions. If we then allow the parameters of <span class="math inline">\(f_z\)</span> to vary smoothly with <span class="math inline">\(t\)</span>, <span class="math inline">\(f_z\)</span> can be converted into a function of
-<span class="math inline">\(z\)</span> and <span class="math inline">\(t\)</span>. We use the basis for <span class="math inline">\(t\)</span> to get: <span class="math display">\[\alpha_{j}(t)= \sum_{k=1}^{K} \delta_(jk)
-d_{k}(t)\]</span> and it then follows that <span class="math display">\[f_{zt}(z,t)= \sum_{j=1}^{J} \alpha_j a_{j}(z) =
-\sum_{j=1}^{J} \sum_{k=1}^{K} \delta_{jk} d_{k}(t)a_{j}(z).\]</span> The
+<span class="math inline">\(z\)</span> and <span class="math inline">\(t\)</span>. We use the basis for <span class="math inline">\(t\)</span> to get: <span class="math display">\[\alpha_{j}(t)= \sum_{k=1}^{K} \beta_{jk}
+b_{k}(t)\]</span> and it then follows that <span class="math display">\[f_{zt}(z,t)= \sum_{j=1}^{J} \alpha_j a_{j}(z) =
+\sum_{j=1}^{J} \sum_{k=1}^{K} \beta_{jk} b_{k}(t)a_{j}(z).\]</span> The
 set of observations of <span class="math inline">\(z\)</span> and <span class="math inline">\(t\)</span> has model matrices for the marginal
-smooths, <span class="math inline">\(\mathbf{X}_z\)</span> and <span class="math inline">\(\mathbf{X}_t\)</span>. The model matrix <span class="math inline">\(\mathbf{X}\)</span>, which maps parameters <span class="math inline">\(\delta_{jk}\)</span> (arranged into a vector <span class="math inline">\(\delta\)</span>) to the evaluated function <span class="math inline">\(f_{zt}(z,t)\)</span> at <span class="math inline">\(z\)</span> and <span class="math inline">\(t\)</span>, can be calculated using a Kronecker
+smooths, <span class="math inline">\(\mathbf{X}_z\)</span> and <span class="math inline">\(\mathbf{X}_t\)</span>. The model matrix <span class="math inline">\(\mathbf{X}\)</span>, which maps parameters <span class="math inline">\(\beta_{jk}\)</span> (arranged into a vector <span class="math inline">\(\mathbf{\beta}\)</span>) to the evaluated function
+<span class="math inline">\(f_{zt}(z,t)\)</span> at <span class="math inline">\(z\)</span> and <span class="math inline">\(t\)</span>, can be calculated using a Kronecker
 product of these model matrices for the marginal smooths. The <span class="math inline">\(i\)</span>-th row of <span class="math inline">\(\mathbf{X}\)</span> is given by: <span class="math display">\[\mathbf{X}_{i}= \mathbf{X}_{zi} \otimes
 \mathbf{X}_{ti}\]</span> In order to smooth this tensor product basis,
 the roughness is also measured using marginal smooth functions, with the
 assumption that each has an associated function that measures the
 roughness of the function and can be expressed as a quadratic form in
-the marginal parameters. Here, we use cubic spline penalties are used as
-the marginal penalties, so the roughness of <span class="math inline">\(f_{zt}\)</span> can be measured as: <span class="math display">\[\begin{equation}
+the marginal parameters. Here, cubic spline penalties are used as the
+marginal penalties, so the roughness of <span class="math inline">\(f_{zt}\)</span> can be measured as: <span class="math display">\[\begin{equation}
 J(f_{zt})= \int_{z,t} \left[ \lambda_{z} \left(
-\frac{\delta^{2}f}{\delta z^2} \right) ^2 + \lambda_t \left(
-\frac{\delta^{2}f}{\delta t^2} \right) ^2 \right] \mathrm{d}z
-\mathrm{d}t (\#eq:rough)
-\end{equation}\]</span> where <span class="math inline">\(\lambda_{\cdot}\)</span> are smoothing parameters
-that control the tradeoff in roughness in different directions and allow
-the penalty to be independent of the scaling of the variables. The
+\frac{\partial^{2}f}{\partial z^2} \right) ^2 + \lambda_t \left(
+\frac{\partial^{2}f}{\partial t^2} \right) ^2 \right] \mathrm{d}z
+\mathrm{d}t
+\end{equation}\]</span> where <span class="math inline">\(\lambda_{z}\)</span> and <span class="math inline">\(\lambda_{t}\)</span> are smoothing parameters that
+control the tradeoff in roughness in different directions and allow the
+penalty to be independent of the scaling of the variables. The
 coefficients and smoothing parameters of this tensor product smooth are
 estimated in a GAM using R package <code>mgcv</code>.</p>
 </div>
@@ -293,15 +297,15 @@ boundaries between clusters <span class="citation">(Alonso et al.
 certainty of the cluster assignments <span class="citation">(Everitt
 2011)</span>, while still being computationally efficient.</p>
 <p>If <span class="math inline">\(\mathbf{X}={\mathbf{x}_i |i=1, \dots
-,n}\)</span> is a set of values for <span class="math inline">\(n\)</span> subjects, we can let <span class="math inline">\(\mathbf{V}={\mathbf{v}_1, \mathbf{v}_2, \dots ,
-\mathbf{v}_c}\)</span> be the set of cluster means or cluster medoids,
-where the <span class="math inline">\(\mathbf{x}_i\)</span> and <span class="math inline">\(\mathbf{v}_j\)</span> are scalar for univariate
+,n}\)</span> is a set of values for <span class="math inline">\(n\)</span> subjects, we can let <span class="math inline">\(\mathbf{Q}={\mathbf{q}_1, \mathbf{q}_2, \dots ,
+\mathbf{q}_c}\)</span> be the set of cluster means or cluster medoids,
+where the <span class="math inline">\(\mathbf{x}_i\)</span> and <span class="math inline">\(\mathbf{q}_j\)</span> are scalar for univariate
 data and mathbfors for multivariate data and <span class="math inline">\(c\)</span> is the number of clusters. In fuzzy
-c-medoids clustering, <span class="math inline">\(\mathbf{V}\)</span>
+c-medoids clustering, <span class="math inline">\(\mathbf{Q}\)</span>
 will be a subset of size <span class="math inline">\(c\)</span> of <span class="math inline">\(\mathbf{X}\)</span>. Then the fuzzy c-means or
 fuzzy c-medoids algorithm will minimize <span class="math display">\[\begin{equation}
-\mathop{\arg \min}\limits_{\mathbf{V}}= \sum_{i=1}^{n} \sum_{j=1}^{c}
-u_{ij}^{m} \|\mathbf{x}_{i} - \mathbf{v}_j \|^{2}.
+\mathop{\arg \min}\limits_{\mathbf{Q}}= \sum_{i=1}^{n} \sum_{j=1}^{c}
+u_{ij}^{m} \|\mathbf{x}_{i} - \mathbf{q}_j \|^{2}.
 \end{equation}\]</span></p>
 <p>In this objective function, <span class="math inline">\(u_{ij}\)</span> represents the degree of
 membership of <span class="math inline">\(\mathbf{x}_i\)</span> in
@@ -309,13 +313,13 @@ cluster <span class="math inline">\(j\)</span>, and is most often
 defined by:</p>
 <p><span class="math display">\[\begin{equation}
 u_{ij}= \frac{1}{\sum_{k=1}^{c} \left( \frac{\|\mathbf{x}_{i} -
-\mathbf{v}_j \|}{\|\mathbf{x}_{i} - \mathbf{v}_k \|}
+\mathbf{}_j \|}{\|\mathbf{x}_{i} - \mathbf{q}_k \|}
 \right)^{\frac{2}{m-1}}}
 \end{equation}\]</span> where <span class="math inline">\(m\)</span> is
 the “fuzziness” parameter, <span class="math inline">\(m \in
-[1,\infty)\)</span>. Higher values of m indicate a higher fuzziness,
-where individuals are more likely to belong to more clusters. There is
-not a widely accepted optimal value for <span class="math inline">\(m\)</span>, but it is related to the number and
+[1,\infty)\)</span>. Higher values of <span class="math inline">\(m\)</span> indicate a higher fuzziness, where
+individuals are more likely to belong to more clusters. There is not a
+widely accepted optimal value for <span class="math inline">\(m\)</span>, but it is related to the number and
 separation of clusters in the dataset <span class="citation">(Huang et
 al. 2012)</span>. As <span class="math inline">\(m \to 1_{+}\)</span>,
 the fuzzy clustering algorithm reduces to a hard clustering algorithm,
@@ -334,15 +338,15 @@ the medoids are classified into the noise cluster. The distance <span class="mat
 the average distance between individuals and cluster means, but it may
 be pre-specified to control the number of individuals classified as
 outliers. If a noise cluster is included, the equation for <span class="math inline">\(u_{ij}\)</span> is replaced by: <span class="math display">\[\begin{equation}
-u_{ij}= \frac{\left[ \frac{1}{|\mathbf{x}_{i} - \mathbf{v}_k \|^2}
+u_{ij}= \frac{\left[ \frac{1}{|\mathbf{x}_{i} - \mathbf{q}_k \|^2}
 \right] ^{\frac{1}{m-1}}}{\sum_{k=1}^{c} \left[
-\frac{1}{\|\mathbf{x}_{i} - \mathbf{v}_k \|} \right]^{\frac{1}{m-1}} +
+\frac{1}{\|\mathbf{x}_{i} - \mathbf{q}_k \|} \right]^{\frac{1}{m-1}} +
 \left[ \frac{1}{\delta^2} \right]^{\frac{1}{m-1}}}
 \end{equation}\]</span></p>
 <p>and the degree of membership in the noise cluster is <span class="math display">\[\begin{equation}
 u_{i(j+1)}= \frac{\left[ \frac{1}{\delta^2} \right]
 ^{\frac{1}{m-1}}}{\sum_{k=1}^{c} \left[ \frac{1}{\|\mathbf{x}_{i} -
-\mathbf{v}_k \|} \right]^{\frac{1}{m-1}} + \left[ \frac{1}{\delta^2}
+\mathbf{q}_k \|} \right]^{\frac{1}{m-1}} + \left[ \frac{1}{\delta^2}
 \right]^{\frac{1}{m-1}}}
 \end{equation}\]</span></p>
 <p>The clustering algorithm is implemented using R package
@@ -363,8 +367,8 @@ cluster membership. This information can be incorporated into a GLM to
 account for the clustering uncertainty using the partial assignment
 method, where c - 1 dummy variables for cluster membership are used, but
 the degree of cluster membership is inserted into the model for each of
-these variables rather than a zero or one <span class="citation">(Lythgoe, Garcia-Fiñana, and Cox 2019)</span>.
-Additional covariates can also be included in the model.</p>
+these variables rather than a zero or one <span class="citation">(Lythgoe, Garcia-Fiñana, and Cox 2019)</span>. Using a
+GLM also allows additional covariates to be included in the model.</p>
 </div>
 </div>
 <div class="section level2">
@@ -388,7 +392,7 @@ produced.</p>
 <code>TPSClus</code> package, we use a simulated time series dataset
 containing three variables collected over a period of one year. The
 dataset is structured in long format, with a subject ID variable, a time
-variable, three variables measured at each time point, two fixed
+variable, three variables measured at each timepoint, two fixed
 covariates, and a binary outcome variable.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://silivingston.github.io/TPSClus/">"TPSClus"</a></span><span class="op">)</span></span>
@@ -404,13 +408,13 @@ covariates, and a binary outcome variable.</p>
 <p>The <code><a href="../reference/TPSfit.html">TPSfit()</a></code> function fits tensor product splines on
 three or more variables with repeated measures, in this case
 <code>Var1</code>, <code>Var2</code>, and <code>Var3</code>. The splines
-are fitted using the <code><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam()</a></code> function in package
+are fitted using the <code>gam()</code> function in package
 <code>mgcv</code> with a cubic spline basis. For the time variable, the
 user may choose to either specify the location of the knots, or specify
 the number of knots, which will then be spaced evenly across the total
 time period. It is necessary that all individuals be measured over
-roughly the same time period, and that each individual has an adequate
-number of observations to support the chosen number of knots. As
+roughly the same time period, and that each individual has a number of
+observations greater than or equal to the chosen number of knots. As
 <code><a href="../reference/TPSfit.html">TPSfit()</a></code> runs , it will produce a warning message for any
 individuals who were unable to be fit by a spline with the given number
 of knots, and a list of these subjects is included in the output. For a
@@ -435,10 +439,11 @@ simple fit using 5 knots for the time variable, we can run</p>
 <code>GAMsfitted</code> dataset contains fitted spline values at the
 knots, and the <code>GAMScoef</code> dataset contains the spline
 coefficients. By default, the function standardizes each of the
-variables in order to equalize the multivariate data <code>RN283</code>.
-For each individual, the mean of each trajectory is also produced, along
-with values centered on the individual mean. These can be seen in the
-<code>GAMsfitted</code> dataset:</p>
+variables in order to equalize the multivariate data so that all
+variables are on the same scale <code>RN283</code>. For each individual,
+the mean of each trajectory is also produced, along with values centered
+on the individual mean. These can be seen in the <code>GAMsfitted</code>
+dataset:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">fitsplines1</span><span class="op">$</span><span class="va">GAMsfitted</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   Id2 SubjectID FitTime Variable          x t      mean_x  centered_x</span></span>
@@ -489,7 +494,7 @@ standardized raw data as shown in Figure 2.</p>
 <p><img src="demo_files/figure-html/dataplot-1.png" width="672"></p>
 <p>Due to the observation of several outlying trajectories, we will
 leave the default <code>noise = TRUE</code> option. We start by
-clustering on the spline coefficients and <code>k = 2</code> clusters
+clustering on the spline coefficients with <code>k = 2</code> clusters
 and 10 random starts.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ccoefs_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cluster.coefs.html">cluster.coefs</a></span><span class="op">(</span><span class="va">fitsplines2</span>, k<span class="op">=</span><span class="fl">2</span>, RS<span class="op">=</span><span class="fl">10</span>, seed<span class="op">=</span><span class="fl">1234</span><span class="op">)</span></span>
@@ -503,14 +508,14 @@ Fuzzy Silhouette index, here labeled as <code>SIL.F</code> <span class="citation
 index, labeled <code>XB</code> <span class="citation">(Xie and Beni
 1991)</span>. The maximum value of the Fuzzy Silhouette and the minimum
 value of the Xie-Beni index are used to identify the optimal number of
-clusters.</p>
+clusters. The <code><a href="../reference/comp.FKM.indices.html">comp.FKM.indices()</a></code> function in
+<code>TPSClus</code> generates a simple table to compare validity
+indices.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ccoefs_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cluster.coefs.html">cluster.coefs</a></span><span class="op">(</span><span class="va">fitsplines2</span>, k<span class="op">=</span><span class="fl">3</span>, RS<span class="op">=</span><span class="fl">10</span>, seed<span class="op">=</span><span class="fl">1234</span><span class="op">)</span></span>
 <span><span class="va">ccoefs_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cluster.coefs.html">cluster.coefs</a></span><span class="op">(</span><span class="va">fitsplines2</span>, k<span class="op">=</span><span class="fl">4</span>, RS<span class="op">=</span><span class="fl">10</span>, seed<span class="op">=</span><span class="fl">1234</span><span class="op">)</span></span>
 <span><span class="va">ccoefs_5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cluster.coefs.html">cluster.coefs</a></span><span class="op">(</span><span class="va">fitsplines2</span>, k<span class="op">=</span><span class="fl">5</span>, RS<span class="op">=</span><span class="fl">10</span>, seed<span class="op">=</span><span class="fl">1234</span><span class="op">)</span></span>
-<span><span class="va">compare</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">ccoefs_2</span><span class="op">$</span><span class="va">FKM_indices</span>, <span class="va">ccoefs_3</span><span class="op">$</span><span class="va">FKM_indices</span>, <span class="va">ccoefs_4</span><span class="op">$</span><span class="va">FKM_indices</span>, <span class="va">ccoefs_5</span><span class="op">$</span><span class="va">FKM_indices</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/row.names.html" class="external-link">row.names</a></span><span class="op">(</span><span class="va">compare</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"k=2"</span>, <span class="st">"k=3"</span>, <span class="st">"k=4"</span>, <span class="st">"k=5"</span><span class="op">)</span></span>
-<span><span class="va">compare</span><span class="op">[</span>,<span class="fl">5</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span></span>
+<span><span class="fu"><a href="../reference/comp.FKM.indices.html">comp.FKM.indices</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">ccoefs_2</span>, <span class="va">ccoefs_3</span>, <span class="va">ccoefs_4</span>, <span class="va">ccoefs_5</span><span class="op">)</span>, index<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"SIL.F"</span>, <span class="st">"XB"</span><span class="op">)</span>, clusternames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"k=2"</span>, <span class="st">"k=3"</span>, <span class="st">"k=4"</span>, <span class="st">"k=5"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;         SIL.F        XB</span></span>
 <span><span class="co">#&gt; k=2 0.2483164 0.8582490</span></span>
 <span><span class="co">#&gt; k=3 0.3359611 0.4794297</span></span>
@@ -523,9 +528,7 @@ spline values and the slopes between those values. We can apply this
 using three clusters for comparison.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cfit_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cluster.fitted.html">cluster.fitted</a></span><span class="op">(</span><span class="va">fitsplines2</span>, k<span class="op">=</span><span class="fl">3</span>, RS<span class="op">=</span><span class="fl">10</span>, seed<span class="op">=</span><span class="fl">1234</span><span class="op">)</span></span>
-<span><span class="va">compare2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">ccoefs_3</span><span class="op">$</span><span class="va">FKM_indices</span>, <span class="va">cfit_3</span><span class="op">$</span><span class="va">FKM_indices</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/row.names.html" class="external-link">row.names</a></span><span class="op">(</span><span class="va">compare2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"coefficients"</span>, <span class="st">"fitted values"</span><span class="op">)</span></span>
-<span><span class="va">compare2</span><span class="op">[</span>,<span class="fl">5</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span></span>
+<span><span class="fu"><a href="../reference/comp.FKM.indices.html">comp.FKM.indices</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">ccoefs_3</span>, <span class="va">cfit_3</span><span class="op">)</span>, index<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"SIL.F"</span>, <span class="st">"XB"</span><span class="op">)</span>, clusternames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"coefficients"</span>, <span class="st">"fitted values"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                   SIL.F        XB</span></span>
 <span><span class="co">#&gt; coefficients  0.3359611 0.4794297</span></span>
 <span><span class="co">#&gt; fitted values 0.4814252 0.4135123</span></span></code></pre></div>
@@ -716,23 +719,25 @@ necessary to predict the cluster assignments first.</p>
 <span><span class="co">#&gt;     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. </span></span>
 <span><span class="co">#&gt; 0.000000 0.001644 0.274358 0.409432 0.833822 0.999997</span></span></code></pre></div>
 <p>The predicted value in the output dataset is the predicted
-probability of the binary outcome. The mean value of the predicted
-probability is about 0.41.</p>
+probability of the binary outcome. Adding a <code>type = "link"</code>
+option would give a prediction on the scale of teh linear predictors.The
+mean value of the predicted probability is about 0.41.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="summary-and-discussion">5. Summary and discussion<a class="anchor" aria-label="anchor" href="#summary-and-discussion"></a>
 </h2>
 <p>The <code>TPSClus</code> package provides a methodology for
-multivariate fuzzy clustering of longitudinal data. The package provides
-multiple plots to enable visualization of the clustered data. Cluster
-assignment may be used as a predictor in a GLM while taking the
-uncertainty of cluster assignment into account. In additional the
-package provides options for predicting cluster assignment and outcomes
-for new data.</p>
-<p>Many of the limitations of <code>TPSClus</code> are those inherent in
-all clustering algorithms. The methods identify clusters based entirely
-on trajectory shapes, but in reality, these clusters are a construct for
+multivariate fuzzy clustering of longitudinal data and for inclusion of
+fuzzy clustering results in a GLM to predict a distal outcome. The
+package provides multiple plots to enable visualization of the clustered
+data. Cluster assignment may be used as a predictor in a GLM while
+taking the uncertainty of cluster assignment into account. In additional
+the package provides options for predicting cluster assignment and
+outcomes for new data.</p>
+<p>Limitations of <code>TPSClus</code> are those inherent in all
+clustering algorithms. The methods identify clusters based entirely on
+trajectory shapes, but in reality, these clusters are a construct for
 simplicity of interpretation and are not well-defined in a real EHR
 dataset. The determination of the optimal number of clusters remains an
 unsettled issue. In this package, we provide several indices and plots
@@ -746,18 +751,10 @@ shape and computational cost associated with GMM models. In addition,
 the package offers options for robustness to outliers and for including
 the clusters into GLMs as independent variables. It also provides
 valuable visualization tools.</p>
-<p>A number of topics need further investigation. As mentioned before,
-identifying the optimal number of clusters is an important unresolved
-issue. There are also many methods that have been presented in the
-literature for clustering multivariate trajectory data, but little
-research that compares these methods.</p>
-<p>The <code>TPSClus</code> package provides a method for identifying
-clusters based on multiple trajectories in longitudinal data. The
-non-parametric fuzzy c-medoids algorithm is particularly useful in large
-datasets with outliers, such as EHR databases, where other methods can
-suffer from convergence issues and high computational cost. The tools
-offered in this package provide researchers with a valuable tool for the
-analysis of this increasingly common data format.</p>
+<p>Topics needing further investigation include identifying the optimal
+number of clusters and a comparison of the various methods that have
+been presented in the literature for clustering multivariate trajectory
+data.</p>
 <div style="page-break-after: always;"></div>
 </div>
 <div class="section level2 unnumbered">
