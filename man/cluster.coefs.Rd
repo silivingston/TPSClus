@@ -7,7 +7,7 @@
 cluster.coefs(TPSdata, k, m = 1.2, noise = TRUE, seed, ...)
 }
 \arguments{
-\item{TPSdata}{Output from the TPSfit function.}
+\item{TPSdata}{Output from the \code{\link[=TPSfit]{TPSfit()}} function.}
 
 \item{k}{An integer value indicating the number of clusters.}
 
@@ -20,43 +20,42 @@ outliers is to be included.}
 \item{seed}{An optional numeric value for the seed, as the clustering
 algorithm uses random start values.}
 
-\item{...}{Additional optional values employed by \code{fclust}, including \code{RS},
+\item{...}{Additional optional values employed by \pkg{fclust}, including \code{RS},
 the number of random starts, and \code{delta}, the distance for outliers.}
 }
 \value{
 An object of class '\code{FKM.TPS}' containing the following components:
 \itemize{
-\item \code{FKM_TPS} An object output by the \code{fclust} algorithm.
-\item \code{U}  A dataframe containing the degrees of cluster membership for each subject.
-\item \code{Umax} A vector containing the modal cluster assignment for each subject.
-\item \code{FKM_TPS_U} A data frame containing subjects with subject ID, degrees of cluster
+\item \code{FKM_TPS } An object output by the \pkg{fclust} algorithm.
+\item \code{U }  A dataframe containing the degrees of cluster membership for each subject.
+\item \code{Umax } A vector containing the modal cluster assignment for each subject.
+\item \code{FKM_TPS_U } A data frame containing subjects with subject ID, degrees of cluster
 membership, and modal class assignment.
-\code{FKM_indices} A vector containing the values for six cluster validity indices.
+\item \code{FKM_indices } A vector containing the values for six cluster validity indices.
 See \code{\link[fclust:Fclust.index]{fclust::Fclust.index()}}
-\item \code{wide_data} A data frame with the values that were clustered on in the
+\item \code{wide_data } A data frame with the values that were clustered on in the
 clustering algorithm plus subject IDs.
-\item \code{TPSdata} The \code{TPSfit} object that was input into the function.
-\item \code{noise} Logical value that was used to determine whether a noise cluster is
+\item \code{TPSdata } The '\code{TPSfit}' object that was input into the function.
+\item \code{noise } Logical value that was used to determine whether a noise cluster is
 included.
-\item \code{k} The number of clusters.
-\item \code{m} The fuzziness parameter.
-\item \code{IDmatch} A data frame matching the original subject ID with new consecutive
+\item \code{k } The number of clusters.
+\item \code{m } The fuzziness parameter.
+\item \code{IDmatch } A data frame matching the original subject ID with new consecutive
 ID values.
 }
 }
 \description{
-\code{cluster.coefs()} is used to apply a fuzzy c-medoids clustering algorithm to
-the tensor-product spline coefficients that are output from the \code{TPSfit} function.
+\code{cluster.coefs()} is used to apply the fuzzy c-medoids clustering algorithm to
+the tensor-product spline coefficients that are output from the \code{\link[=TPSfit]{TPSfit()}} function.
 }
 \details{
-\code{cluster.coefs()} employs package \code{fclust} to apply a fuzzy c-medoids
+\code{cluster.coefs()} employs package \pkg{fclust} to apply th fuzzy c-medoids
 clustering algorithm to the tensor-product spline coefficients that are
-output from the \code{TPSfit} function. The user has options of including a noise
+output from the \code{\link[=TPSfit]{TPSfit()}} function. The user has the option to include a noise
 cluster.
 }
 \examples{
-library(dplyr); library(tidyr); library(fclust)
-#' data(TS.sim)
+data(TS.sim)
 
 fitsplines <- TPSfit(TS.sim, vars=c("Var1", "Var2", "Var3"), time="Time",
      ID="SubjectID", knots_time=c(0, 91, 182, 273, 365), n_fit_times=10)
@@ -69,7 +68,7 @@ summary(clusters2)
 \itemize{
 \item \code{\link[=cluster.fitted]{cluster.fitted()}} is an alternative method that clusters fitted spline
 values rather than spline coefficients.
-\item The \code{fclust} R package: \url{https://cran.r-project.org/web/packages/fclust/index.html}
+\item The pkg{fclust} R package: \url{https://cran.r-project.org/web/packages/fclust/index.html}
 \item Fuzzy k-medoids function: \code{\link[fclust:FKM.med]{fclust::FKM.med()}}
 \item Fuzzy k-medoids function with noise cluster: \code{\link[fclust:FKM.med.noise]{fclust::FKM.med.noise()}}
 }
