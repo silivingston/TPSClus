@@ -2,17 +2,17 @@
 #' Fuzzy c-medoids clustering on fitted values of splines
 #'
 #' `cluster.fitted()` is used to apply a fuzzy c-medoids clustering algorithm to
-#'   the fitted values that are output from the `TPSfit` function.
+#'   the fitted values that are output from the `TPSfit()` function.
 #'
-#' `cluster.fitted()` employs package \pkg{fclust} to apply a fuzzy c-medoids
+#' `cluster.fitted()` employs package \pkg{fclust} to apply the fuzzy c-medoids
 #'   clustering algorithm to the fitted tensor-product spline values that are
-#'   output from the `TPSfit` function. The user has options of including a noise
+#'   output from the [TPSfit()] function. The user has options of including a noise
 #'   cluster and centering trajectories on the individual means. The `addslopes`
 #'   option will cluster on the slopes between fitted time-points in addition to
 #'   cross-sectional fitting at those points.
 #'
 #'
-#' @param TPSdata Output from the TPSfit function.
+#' @param TPSdata Output from the [TPSfit()] function.
 #' @param center A logical expression indicating that trajectories are to be
 #'   centered on individual means.
 #' @param addslopes A logical expression indicating that clustering will be
@@ -25,29 +25,29 @@
 #'   outliers is to be included.
 #' @param seed An optional numeric value for the seed, as the clustering
 #'   algorithm uses random start values.
-#' @param ... Additional optional values employed by `fclust`, including `RS`,
+#' @param ... Additional optional values employed by \pkg{fclust}, including `RS`,
 #'   the number of random starts, and `delta`, the distance for outliers.
 #'
 #' @returns An object of class '`FKM.TPS`' containing the following components:
-#'* `FKM_TPS` An object output by the `fclust` algorithm.
-#'* `U`  A dataframe containing the degrees of cluster membership for each subject.
-#'* `Umax` A vector containing the modal cluster assignment for each subject.
-#'* `FKM_TPS_U` A data frame containing subjects with subject ID, degrees of cluster
+#'* `FKM_TPS `  An object output by the `fclust` algorithm.
+#'* `U `   A dataframe containing the degrees of cluster membership for each subject.
+#'* `Umax `  A vector containing the modal cluster assignment for each subject.
+#'* `FKM_TPS_U `  A data frame containing subjects with subject ID, degrees of cluster
 #'   membership, and modal class assignment.
-#'   `FKM_indices` A vector containing the values for six cluster validity indices.
+#'* `FKM_indices `  A vector containing the values for six cluster validity indices.
 #'   See [fclust::Fclust.index()]
-#'* `wide_data` A data frame with the values that were clustered on in the
+#'* `wide_data `  A data frame with the values that were clustered on in the
 #'   clustering algorithm plus subject IDs.
-#'* `TPSdata` The `TPSfit` object that was input into the function.
-#'* `center` Logical value that was used to determine whether to center on individual
+#'* `TPSdata `  The '`TPSfit`' object that was input into the function.
+#'* `center `  Logical value that was used to determine whether to center on individual
 #'   trajectories.
-#'* `noise` Logical value that was used to determine whether a noise cluster is
+#'* `noise `  Logical value that was used to determine whether a noise cluster is
 #'   included.
-#'* `k` The number of clusters.
-#'* `m` The fuzziness parameter.
-#'* `addslopes` Logical value that was used to determine whether to include the
+#'* `k `  The number of clusters.
+#'* `m `  The fuzziness parameter.
+#'* `addslopes `  Logical value that was used to determine whether to include the
 #'   slopes between fitted time-points.
-#'* `IDmatch` A data frame matching the original subject ID with new consecutive
+#'* `IDmatch `  A data frame matching the original subject ID with new consecutive
 #'   ID values.
 #'
 #'
@@ -56,13 +56,12 @@
 #' @seealso
 #' * [cluster.coefs()] is an alternative method that clusters on spline
 #'   coefficients rather than fitted values.
-#' * The `fclust` R package: <https://CRAN.R-project.org/package=fclust>
+#' * The \pkg{fclust} R package: <https://CRAN.R-project.org/package=fclust>
 #' * Fuzzy k-medoids function: [fclust::FKM.med()]
 #' * Fuzzy k-medoids function with noise cluster: [fclust::FKM.med.noise()]
 #'
 #'
 #' @examples
-#' library(dplyr); library(tidyr); library(fclust)
 #' data(TS.sim)
 #'
 #' fitsplines <- TPSfit(TS.sim, vars=c("Var1", "Var2", "Var3"), time="Time",
@@ -164,15 +163,15 @@ cluster.fitted <- function(TPSdata, center=TRUE, addslopes=TRUE, k, m=1.2,
 
 #' Fuzzy c-medoids clustering on tensor-product spline coefficients
 #'
-#' `cluster.coefs()` is used to apply a fuzzy c-medoids clustering algorithm to
-#'   the tensor-product spline coefficients that are output from the `TPSfit` function.
+#' `cluster.coefs()` is used to apply the fuzzy c-medoids clustering algorithm to
+#'   the tensor-product spline coefficients that are output from the [TPSfit()] function.
 #'
-#' `cluster.coefs()` employs package `fclust` to apply a fuzzy c-medoids
+#' `cluster.coefs()` employs package \pkg{fclust} to apply th fuzzy c-medoids
 #' clustering algorithm to the tensor-product spline coefficients that are
-#' output from the `TPSfit` function. The user has options of including a noise
+#' output from the [TPSfit()] function. The user has the option to include a noise
 #' cluster.
 #'
-#' @param TPSdata Output from the TPSfit function.
+#' @param TPSdata Output from the [TPSfit()] function.
 #' @param k An integer value indicating the number of clusters.
 #' @param m A numeric value called the 'fuzziness parameter.' Must be greater
 #'   than 1, with a default of 1.2.
@@ -180,25 +179,25 @@ cluster.fitted <- function(TPSdata, center=TRUE, addslopes=TRUE, k, m=1.2,
 #'   outliers is to be included.
 #' @param seed An optional numeric value for the seed, as the clustering
 #'   algorithm uses random start values.
-#' @param ... Additional optional values employed by `fclust`, including `RS`,
+#' @param ... Additional optional values employed by \pkg{fclust}, including `RS`,
 #'   the number of random starts, and `delta`, the distance for outliers.
 #'
 #' @returns An object of class '`FKM.TPS`' containing the following components:
-#'* `FKM_TPS` An object output by the `fclust` algorithm.
-#'* `U`  A dataframe containing the degrees of cluster membership for each subject.
-#'* `Umax` A vector containing the modal cluster assignment for each subject.
-#'* `FKM_TPS_U` A data frame containing subjects with subject ID, degrees of cluster
+#'* `FKM_TPS ` An object output by the \pkg{fclust} algorithm.
+#'* `U `  A dataframe containing the degrees of cluster membership for each subject.
+#'* `Umax ` A vector containing the modal cluster assignment for each subject.
+#'* `FKM_TPS_U ` A data frame containing subjects with subject ID, degrees of cluster
 #'   membership, and modal class assignment.
-#'   `FKM_indices` A vector containing the values for six cluster validity indices.
+#'* `FKM_indices ` A vector containing the values for six cluster validity indices.
 #'   See [fclust::Fclust.index()]
-#'* `wide_data` A data frame with the values that were clustered on in the
+#'* `wide_data ` A data frame with the values that were clustered on in the
 #'   clustering algorithm plus subject IDs.
-#'* `TPSdata` The `TPSfit` object that was input into the function.
-#'* `noise` Logical value that was used to determine whether a noise cluster is
+#'* `TPSdata ` The '`TPSfit`' object that was input into the function.
+#'* `noise ` Logical value that was used to determine whether a noise cluster is
 #'   included.
-#'* `k` The number of clusters.
-#'* `m` The fuzziness parameter.
-#'* `IDmatch` A data frame matching the original subject ID with new consecutive
+#'* `k ` The number of clusters.
+#'* `m ` The fuzziness parameter.
+#'* `IDmatch ` A data frame matching the original subject ID with new consecutive
 #'   ID values.
 #'
 #' @export
@@ -206,13 +205,12 @@ cluster.fitted <- function(TPSdata, center=TRUE, addslopes=TRUE, k, m=1.2,
 #' @seealso
 #' * [cluster.fitted()] is an alternative method that clusters fitted spline
 #'   values rather than spline coefficients.
-#' * The `fclust` R package: <https://cran.r-project.org/web/packages/fclust/index.html>
+#' * The pkg{fclust} R package: <https://cran.r-project.org/web/packages/fclust/index.html>
 #' * Fuzzy k-medoids function: [fclust::FKM.med()]
 #' * Fuzzy k-medoids function with noise cluster: [fclust::FKM.med.noise()]
 #'
 #' @examples
-#' library(dplyr); library(tidyr); library(fclust)
-#' #' data(TS.sim)
+#' data(TS.sim)
 #'
 #' fitsplines <- TPSfit(TS.sim, vars=c("Var1", "Var2", "Var3"), time="Time",
 #'      ID="SubjectID", knots_time=c(0, 91, 182, 273, 365), n_fit_times=10)
@@ -397,32 +395,31 @@ summary.FKM.TPS <- function(object, ...) {
 #' After clustering a set of trajectory data, predict the cluster assignment for
 #' new subjects.
 #'
-#' @param object An object of class `FKM.TPS` of previously identified
+#' @param object An object of class '`FKM.TPS`' of previously identified
 #'   clusters.
 #' @param newdata A new data frame containing subjects with the same variables
 #'   previously used for clustering.
 #' @param ... Additional arguments.
 #'
-#' @returns An object of class 'FKM.predicted' containing the following components:
-#' * `predicted_U` A data frame containing the subjects with their degree of cluster
+#' @returns An object of class '`FKM.predicted`' containing the following components:
+#' * `predicted_U ` A data frame containing the subjects with their degree of cluster
 #'    membership and modal cluster assignment.
-#' * `U` The degrees of cluster membership for each subject.
-#' * `Umax` The modal class assignment for each subject.
-#' * `wide_data` A data frame containing the values that were clustered on.
-#' * `IDmatch` A data frame matching the original subject ID variable to a new
+#' * `U ` The degrees of cluster membership for each subject.
+#' * `Umax ` The modal class assignment for each subject.
+#' * `wide_data ` A data frame containing the values that were clustered on.
+#' * `IDmatch ` A data frame matching the original subject ID variable to a new
 #'    consecutive subject ID.
-#' * `TPSdata` An object of class `TPSfit` containing the fitted splines for the
+#' * `TPSdata ` An object of class '`TPSfit`' containing the fitted splines for the
 #'    new subjects.
-#' * `FKM_TPS` The inputted object of class `FKM.TPS`.
-#' * `noise` Logical expression indicating whether a noise cluster is included for
+#' * `FKM_TPS ` The inputted object of class '`FKM.TPS`'.
+#' * `noise ` Logical expression indicating whether a noise cluster is included for
 #'    outliers.
-#' * `k` The number of clusters.
-#' * `m` The fuzziness parameter.
+#' * `k ` The number of clusters.
+#' * `m ` The fuzziness parameter.
 #'
 #' @export
 #'
 #' @examples
-#' library(dplyr); library(tidyr); library(fclust)
 #' data(TS.sim)
 #'
 #' fitsplines <- TPSfit(TS.sim, vars=c("Var1", "Var2", "Var3"), time="Time",
@@ -681,4 +678,75 @@ summary.FKM.predicted <- function(object, ...) {
   cat("\n")
 }
 
+
+#' Compare indices for fuzzy clusterings
+#'
+#' `comp.FKM.indices()` compares the clustering indices of two more more
+#' clusterings that are output from [cluster.coefs()] or [cluster.fitted()].
+#'
+#' `comp.FKM.indices()` compares the clustering indices of two more more
+#' clusterings that are output from [cluster.coefs()] or [cluster.fitted()].
+#' Available indices are those found in the \pkg{fclust} package: `PC`
+#' (partition coefficient), `PE` (partition entropy), `MPC` (modified partition
+#' coefficient), `SIL` (silhouette), `SIL.F` (fuzzy silhouette), and `XB`
+#' (Xie-Beni). The default `ALL` gives all indices. See [fclust::Fclust.index()]
+#'
+#' @param clusterings A list object of the clusterings to compare. Each should
+#'   be of class `'FKM.TPS'`.
+#' @param index Desired cluster validity index or indices. Default is `"ALL"`.
+#'   Options are: `"PC"`, `"PE"`, `"MPC"`, `"SIL"`, `"SIL.F"`, `"XB"`, or
+#'   `"ALL"`. Multiple options can be input as a character vector. See [fclust::Fclust.index()]
+#' @param clusternames Optional character vector with names of the clusters being compared.
+#'
+#' @return A data frame with the desired validity indices for each of the clusterings.
+#'
+#' @export
+#'
+#' @seealso Values for cluster validity indices are calculated using the
+#'   \pkg{fclust} package. See [fclust::Fclust.index()]
+#'
+#' @examples
+#' data(TS.sim)
+#'
+#' fitsplines <- TPSfit(TS.sim, vars=c("Var1", "Var2", "Var3"), time="Time",
+#'      ID="SubjectID", knots_time=c(0, 91, 182, 273, 365), n_fit_times=10)
+#'
+#' ccoefs_2 <- cluster.coefs(fitsplines, k=2, seed=1234, RS=10)
+#' ccoefs_3 <- cluster.coefs(fitsplines, k=2, seed=1234, RS=10)
+#' ccoefs_4 <- cluster.coefs(fitsplines, k=2, seed=1234, RS=10)
+#' ccoefs_5 <- cluster.coefs(fitsplines, k=2, seed=1234, RS=10)
+#'
+#' # Compare clusters using all indices and custom names
+#' comp.FKM.indices(list(ccoefs_2, ccoefs_3, ccoefs_4, ccoefs_5),
+#' clusternames=c("k=2", "k=3", "k=4", "k=5"))
+#'
+#' # Compare clusterings using a subset of the indices
+#' comp.FKM.indices(list(ccoefs_2, ccoefs_3, ccoefs_4, ccoefs_5),
+#' clusternames=c("k=2", "k=3", "k=4", "k=5"), index=c("SIL.F", "XB"))
+#'
+comp.FKM.indices <- function(clusterings, index="ALL", clusternames=NA) {
+  if (class(clusterings[[1]]) != "FKM.TPS") {stop("Please supply two or more objects of class 'FKM.TPS' as a list")}
+  if (!missing(clusternames) & length(clusternames) != length(clusterings)) {stop("Length of clusternames must be equal to the number of clusterings")}
+  if (!missing(clusternames) & !is.vector(clusternames)) {stop("clusternames must be a character vector")}
+
+  ncompare <- length(clusterings)
+  comp_matrix <- matrix(NA, nrow=ncompare, ncol=6)
+  colnames(comp_matrix) <- names(clusterings[[1]]$FKM_indices)
+  for (i in 1:ncompare) {
+    comp_matrix[i,] <- clusterings[[i]]$FKM_indices
+  }
+
+  #Get desired indices
+  if (index[1] != "ALL" & length(index)==1) {
+    comp_matrix2 <- as.data.frame(comp_matrix[,index])
+    colnames(comp_matrix2) <- index
+  }
+  if (index[1]=="ALL") {
+    comp_matrix2 <- comp_matrix
+  }
+  if (length(index)>1) {comp_matrix2 <- comp_matrix[,index]}
+  if (missing(clusternames)) {row.names(comp_matrix2) <- names(clusterings)}
+  if (!missing(clusternames)) {row.names(comp_matrix2) <- clusternames}
+  return(comp_matrix2)
+}
 
