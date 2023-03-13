@@ -1,52 +1,53 @@
 #'Fit tensor product splines to longitudinal data
 #'
 #'`TPSfit()` is used to fit multidimensional tensor product splines to
-#'longitudinal data with three or more variable of interest prior to
-#'implementation of a clustering algorithm.
+#'longitudinal data with three or more variables of interest prior to
+#'implementation of a clustering algorithm. Data with one or two variables will
+#'be fit using cubic regression splines to each variable individually.
 #'
-#'`TPSfit()` employs package `mgcv` to fit a tensor product splines to each
+#'`TPSfit()` employs package \pkg{mgcv} to fit a tensor product splines to each
 #'individual using a generalized additive model. The fitted splines are
 #'two-dimensional, with one dimension being the variable identifier and the
-#'other being time. An adequate number of observed time points are required for
-#'each individual, and the number of knots should be less than the smallest
-#'number of time points. If splines are unable to be fit for an individual, an
-#'error message will be shown, but splines will be fit for remaining
-#'individuals. A vector of identifiers for individuals with errors is included
-#'in the output as `error_subjects`, and these subjects are not included in the
-#'output `GAMSsfitted` or `GAMscoef`.
+#'other being time. An adequate number of observed time points (greater than the
+#'number of knots) are required for each individual, and the number of knots
+#'should be less than the smallest number of time points. If splines are unable
+#'to be fit for an individual, an error message will be shown, but splines will
+#'be fit for remaining individuals. A vector of identifiers for individuals with
+#'errors is included in the output as `error_subjects`, and these subjects are
+#'not included in the output `GAMSsfitted` or `GAMscoef`.
 #'
 #'
 #' @param data A longitudinal dataset in long form with multiple variables
 #'   measured over time.
 #' @param time Name of the time variable (e.g. "Time").
-#' @param vars A character vector of at least 3 variables of interest.
+#' @param vars A character vector containing the variables of interest.
 #' @param ID Name of the subject ID variable.
 #' @param knots_time A numeric vector of knots for spline-fitting the time
-#'   variable. Must supply knots_time or kt.
+#'   variable. Must supply `knots_time` or `kt`.
 #' @param kt Number of evenly spaced knots for spline-fitting the time variable
-#'   if knots_time is not given.
+#'   if `knots_time` is not given.
 #' @param fit_times Optional vector for times where fitted values will be
-#'   calculated. If fit_times and n_fit_times are not given, fitted values are
+#'   calculated. If `fit_times` and `n_fit_times` are not given, fitted values are
 #'   calculated at knots.
 #' @param n_fit_times Number of evenly spaced times where fitted values will be
-#'   calculated if fit_times are not given.
+#'   calculated if `fit_times `are not given.
 #' @param st Logical expression indicating whether each variable should be
 #'   standardized.
 #'
 #' @returns An object of class '`TPSfit`' containing the following components: \cr
-#'* `GAMsfitted` A data frame containing the fitted spline values. \cr
-#'* `GAMscoef` A data frame containing the tensor product spline coefficients \cr
-#'* `data_long` A data frame containing data in long format for both time and
+#'* `GAMsfitted `  A data frame containing the fitted spline values. \cr
+#'* `GAMscoef `  A data frame containing the tensor product spline coefficients \cr
+#'* `data_long `  A data frame containing data in long format for both time and
 #'   variable \cr
-#'* `knots` A list of two vectors containing the variable and time knots \cr
-#'* `indiv_means` A list containing a data frame of individual means for each of
+#'* `knots `  A list of two vectors containing the variable and time knots \cr
+#'* `indiv_means `  A list containing a data frame of individual means for each of
 #'   the variables of interest \cr
-#'* `GAMs` A list containing the generalized additive models for fitting splines
+#'* `GAMs `  A list containing the generalized additive models for fitting splines
 #'   on each individual \cr
-#'* `nsubject` The number of subjects in the dataset \cr
-#'* `IDmatch` A data frame matching the original subject ID and new consecutive
+#'* `nsubject `  The number of subjects in the dataset \cr
+#'* `IDmatch `  A data frame matching the original subject ID and new consecutive
 #'   ID numbers \cr
-#'* `error_subjects` A vector of individuals that encountered errors in the
+#'* `error_subjects `  A vector of individuals that encountered errors in the
 #'   spline-fitting process \cr
 #'
 #' @export
@@ -54,7 +55,6 @@
 #' @seealso The `mgcv` R package: <https://cran.r-project.org/web/packages/mgcv/index.html>
 #'
 #' @examples
-#' library(tidyr); library(dplyr); library(mgcv)
 #' data(TS.sim)
 #'
 #' fitsplines <- TPSfit(TS.sim, vars=c("Var1", "Var2", "Var3"), time="Time",
@@ -75,10 +75,10 @@ TPSfit <- function(data, time, vars, ID, knots_time, kt, fit_times,
 kt, the number of knots to be used for the time variable.')}
   # Rename variables of interest with Var1, Var2, etc
   numvars <- length(vars)
-  if (numvars < 3) {stop('Please include at least three variables.')}
+  if (numvars < 1) {stop('Please include at least one variable.')}
   varnumbers <- 1:numvars
   varnames <- paste("Var", varnumbers, sep="")
-  Vars <- data[,vars]
+  Vars <- as.data.frame(data[,vars])
   colnames(Vars) <- varnames
   Time <- data[,time]
   Id <- data[,ID]
@@ -141,33 +141,103 @@ kt, the number of knots to be used for the time variable.')}
   GAMcoefs <- list()
   error_subjects <- NULL
 
-  for (i in 1:nsubjects) {
-    datasub <- dplyr::filter(data_long, Id2==i)
-    tryCatch(
-      {
-        GAMsub <- mgcv::gam(x ~ te(Time, Variable, k=c(length(knots_time), length(knots_var))),
-                      knots=knots, data=datasub)
-        Id2 <- rep(i, times=length(fit_times)*numvars)
-        newdata <- cbind(Id2, newdat)
-        newdata$x <- mgcv::predict.gam(GAMsub, newdata)
-        GAMfit[[i]] <- newdata
-        GAMbasis <- GAMsub$coefficients
-        Id2 <- rep(i, times=length(GAMbasis))
-        GAMcoef <- as.data.frame(cbind(Id2, GAMbasis))
-        GAMcoefs[[i]] <- GAMcoef
-        GAMs[[i]] <- GAMsub
-      },
-      error=function(e){
-        message(paste("Subject removed due to error in spline-fitting:", i))
-        print(e)
-        #error_subjects <<- i
-        ifelse(is.null(error_subjects), error_subjects <<- i, error_subjects <<- c(error_subjects, i))
-      },
-      warning=function(w){
-        message(paste("warning occured for subject", i))
-        print(w)
-      }
-    )
+  if (numvars >= 3) {
+    for (i in 1:nsubjects) {
+      datasub <- dplyr::filter(data_long, Id2==i)
+      tryCatch(
+        {
+          GAMsub <- mgcv::gam(x ~ te(Time, Variable, k=c(length(knots_time), length(knots_var))),
+                              knots=knots, data=datasub)
+          Id2 <- rep(i, times=length(fit_times)*numvars)
+          newdata <- cbind(Id2, newdat)
+          newdata$x <- mgcv::predict.gam(GAMsub, newdata)
+          GAMfit[[i]] <- newdata
+          GAMbasis <- GAMsub$coefficients
+          Id2 <- rep(i, times=length(GAMbasis))
+          GAMcoef <- as.data.frame(cbind(Id2, GAMbasis))
+          GAMcoefs[[i]] <- GAMcoef
+          GAMs[[i]] <- GAMsub
+        },
+        error=function(e){
+          message(paste("Subject removed due to error in spline-fitting:", i))
+          print(e)
+          #error_subjects <<- i
+          ifelse(is.null(error_subjects), error_subjects <<- i, error_subjects <<- c(error_subjects, i))
+        },
+        warning=function(w){
+          message(paste("warning occured for subject", i))
+          print(w)
+        }
+      )
+    }
+  }
+
+  if (numvars ==2) {
+    for (i in 1:nsubjects) {
+      datasub1 <- dplyr::filter(data_long, Id2==i & Variable==1)
+      datasub2 <- dplyr::filter(data_long, Id2==i & Variable==2)
+      tryCatch(
+        {
+          GAMsub1 <- mgcv::gam(x ~ s(Time, bs="cr", k=length(knots_time)),
+                              knots=list(knots_time), data=datasub1)
+          GAMsub2 <- mgcv::gam(x ~ s(Time, bs="cr", k=length(knots_time)),
+                               knots=list(knots_time), data=datasub2)
+          Id2 <- rep(i, times=length(fit_times)*numvars)
+          newdata <- cbind(Id2, newdat)
+          newdata$x[which(newdata$Variable==1)] <- mgcv::predict.gam(GAMsub1, newdata[which(newdata$Variable==1),])
+          newdata$x[which(newdata$Variable==2)] <- mgcv::predict.gam(GAMsub2, newdata[which(newdata$Variable==2),])
+          GAMfit[[i]] <- newdata
+          names(GAMsub1$coefficients) <- paste("V1", names(GAMsub1$coefficients), sep="")
+          names(GAMsub2$coefficients) <- paste("V2", names(GAMsub2$coefficients), sep="")
+          GAMbasis <- c(GAMsub1$coefficients, GAMsub2$coefficients)
+          Id2 <- rep(i, times=length(GAMbasis))
+          GAMcoef <- as.data.frame(cbind(Id2, GAMbasis))
+          GAMcoefs[[i]] <- GAMcoef
+          GAMs[[i]] <- GAMsub
+        },
+        error=function(e){
+          message(paste("Subject removed due to error in spline-fitting:", i))
+          print(e)
+          #error_subjects <<- i
+          ifelse(is.null(error_subjects), error_subjects <<- i, error_subjects <<- c(error_subjects, i))
+        },
+        warning=function(w){
+          message(paste("warning occured for subject", i))
+          print(w)
+        }
+      )
+    }
+  }
+
+  if (numvars ==1) {
+    for (i in 1:nsubjects) {
+      datasub <- dplyr::filter(data_long, Id2==i)
+      tryCatch(
+        {
+          GAMsub <- mgcv::gam(x ~ s(Time, bs="cr", k=length(knots_time)),
+                               knots=list(knots_time), data=datasub)
+          Id2 <- rep(i, times=length(fit_times)*numvars)
+          newdata <- cbind(Id2, newdat)
+          newdata$x <- mgcv::predict.gam(GAMsub, newdata)
+          GAMfit[[i]] <- newdata
+          GAMbasis <- GAMsub$coefficients
+          Id2 <- rep(i, times=length(GAMbasis))
+          GAMcoef <- as.data.frame(cbind(Id2, GAMbasis))
+          GAMcoefs[[i]] <- GAMcoef
+          GAMs[[i]] <- GAMsub
+        },
+        error=function(e){
+          message(paste("Subject removed due to error in spline-fitting:", i))
+          print(e)
+          #error_subjects <<- i
+          ifelse(is.null(error_subjects), error_subjects <<- i, error_subjects <<- c(error_subjects, i))
+        },
+        warning=function(w){
+          message(paste("warning occured for subject", i))
+          print(w)
+        }
+      )
+    }
   }
 
   GAMsfitted <- dplyr::bind_rows(GAMfit)
@@ -273,8 +343,12 @@ print.TPSfit <- function(x, ...) {
   if (class(x) != "TPSfit") {stop('Please supply an object of class "TPSfit"')}
   cat("Object of type 'TPSfit'\n")
   cat("\n")
+  if (length(x$vars)>=3) {
   cat("Tensor-product splines fit for", (x$nsubjects-length(x$error_subjects)),
-      "out of", x$nsubjects, "subjects\n", sep=" ")
+      "out of", x$nsubjects, "subjects\n", sep=" ") }
+  if (length(x$vars)<3) {
+    cat("Splines fit for", (x$nsubjects-length(x$error_subjects)),
+        "out of", x$nsubjects, "subjects\n", sep=" ") }
   cat("Variables of interest:", x$vars, "\n", sep=" ")
   cat("Time knots:", x$knots[[1]], "\n",sep=" ")
   if(!is.null(x$error_subjects)) {
@@ -297,8 +371,14 @@ summary.TPSfit <- function(object, ...) {
   cat("Call:\n")
   print(object$call)
   cat("\n")
+  if (length(object$vars)>=3) {
   cat("Tensor-product splines fit for", (object$nsubjects-length(object$error_subjects)),
       "out of", object$nsubjects, "subjects\n", sep=" ")
+  }
+  if (length(object$vars)<3) {
+    cat("Splines fit for", (object$nsubjects-length(object$error_subjects)),
+        "out of", object$nsubjects, "subjects\n", sep=" ")
+  }
   cat("Variables of interest:", object$vars, "\n", sep=" ")
   cat("Time knots:", object$knots[[1]], "\n",sep=" ")
   cat("\n")
