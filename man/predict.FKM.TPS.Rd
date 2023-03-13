@@ -7,7 +7,7 @@
 \method{predict}{FKM.TPS}(object, newdata, ...)
 }
 \arguments{
-\item{object}{An object of class \code{FKM.TPS} of previously identified
+\item{object}{An object of class '\code{FKM.TPS}' of previously identified
 clusters.}
 
 \item{newdata}{A new data frame containing subjects with the same variables
@@ -16,22 +16,22 @@ previously used for clustering.}
 \item{...}{Additional arguments.}
 }
 \value{
-An object of class 'FKM.predicted' containing the following components:
+An object of class '\code{FKM.predicted}' containing the following components:
 \itemize{
-\item \code{predicted_U} A data frame containing the subjects with their degree of cluster
+\item \code{predicted_U } A data frame containing the subjects with their degree of cluster
 membership and modal cluster assignment.
-\item \code{U} The degrees of cluster membership for each subject.
-\item \code{Umax} The modal class assignment for each subject.
-\item \code{wide_data} A data frame containing the values that were clustered on.
-\item \code{IDmatch} A data frame matching the original subject ID variable to a new
+\item \code{U } The degrees of cluster membership for each subject.
+\item \code{Umax } The modal class assignment for each subject.
+\item \code{wide_data } A data frame containing the values that were clustered on.
+\item \code{IDmatch } A data frame matching the original subject ID variable to a new
 consecutive subject ID.
-\item \code{TPSdata} An object of class \code{TPSfit} containing the fitted splines for the
+\item \code{TPSdata } An object of class '\code{TPSfit}' containing the fitted splines for the
 new subjects.
-\item \code{FKM_TPS} The inputted object of class \code{FKM.TPS}.
-\item \code{noise} Logical expression indicating whether a noise cluster is included for
+\item \code{FKM_TPS } The inputted object of class '\code{FKM.TPS}'.
+\item \code{noise } Logical expression indicating whether a noise cluster is included for
 outliers.
-\item \code{k} The number of clusters.
-\item \code{m} The fuzziness parameter.
+\item \code{k } The number of clusters.
+\item \code{m } The fuzziness parameter.
 }
 }
 \description{
@@ -39,7 +39,6 @@ After clustering a set of trajectory data, predict the cluster assignment for
 new subjects.
 }
 \examples{
-library(dplyr); library(tidyr); library(fclust)
 data(TS.sim)
 
 fitsplines <- TPSfit(TS.sim, vars=c("Var1", "Var2", "Var3"), time="Time",
