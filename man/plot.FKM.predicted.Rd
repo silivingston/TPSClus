@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotfunctions.R
 \name{plot.FKM.predicted}
 \alias{plot.FKM.predicted}
-\title{Plot an object of class \code{FKM.predicted}}
+\title{Plot an object of class '\code{FKM.predicted}'}
 \usage{
 \method{plot}{FKM.predicted}(
   x,
@@ -24,7 +24,7 @@
 )
 }
 \arguments{
-\item{x}{An object of class \code{FKM.predicted}}
+\item{x}{An object of class '\code{FKM.predicted}'}
 
 \item{center}{Logical expression indicating whether trajectories are centered
 on individual means.}
@@ -50,8 +50,8 @@ plots.}
 
 \item{strip_label_size}{Optional size for strip labels on graphics.}
 
-\item{type}{Type of plot to produce. Options are "raw", "raw_grid", "smooth",
-and "smooth_grid".}
+\item{type}{Type of plot to produce. Options are \code{"raw"}, \code{"raw_grid"}, \code{"smooth"},
+and \code{"smooth_grid"}.}
 
 \item{...}{Additional arguments}
 }
@@ -59,10 +59,9 @@ and "smooth_grid".}
 A plot of raw or smoothed trajectories for new data by predicted cluster assignment.
 }
 \description{
-Plot an object of class \code{FKM.predicted}
+Plot an object of class '\code{FKM.predicted}'
 }
 \examples{
-library(tidyr); library(dplyr); library(mgcv); library(fclust); library(ggplot2)
 data(TS.sim)
 
 fitsplines <- TPSfit(TS.sim, vars=c("Var1", "Var2", "Var3"), time="Time",
