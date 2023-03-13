@@ -16,7 +16,7 @@ cluster.fitted(
 )
 }
 \arguments{
-\item{TPSdata}{Output from the TPSfit function.}
+\item{TPSdata}{Output from the \code{\link[=TPSfit]{TPSfit()}} function.}
 
 \item{center}{A logical expression indicating that trajectories are to be
 centered on individual means.}
@@ -36,48 +36,47 @@ outliers is to be included.}
 \item{seed}{An optional numeric value for the seed, as the clustering
 algorithm uses random start values.}
 
-\item{...}{Additional optional values employed by \code{fclust}, including \code{RS},
+\item{...}{Additional optional values employed by \pkg{fclust}, including \code{RS},
 the number of random starts, and \code{delta}, the distance for outliers.}
 }
 \value{
 An object of class '\code{FKM.TPS}' containing the following components:
 \itemize{
-\item \code{FKM_TPS} An object output by the \code{fclust} algorithm.
-\item \code{U}  A dataframe containing the degrees of cluster membership for each subject.
-\item \code{Umax} A vector containing the modal cluster assignment for each subject.
-\item \code{FKM_TPS_U} A data frame containing subjects with subject ID, degrees of cluster
+\item \code{FKM_TPS }  An object output by the \code{fclust} algorithm.
+\item \code{U }   A dataframe containing the degrees of cluster membership for each subject.
+\item \code{Umax }  A vector containing the modal cluster assignment for each subject.
+\item \code{FKM_TPS_U }  A data frame containing subjects with subject ID, degrees of cluster
 membership, and modal class assignment.
-\code{FKM_indices} A vector containing the values for six cluster validity indices.
+\item \code{FKM_indices }  A vector containing the values for six cluster validity indices.
 See \code{\link[fclust:Fclust.index]{fclust::Fclust.index()}}
-\item \code{wide_data} A data frame with the values that were clustered on in the
+\item \code{wide_data }  A data frame with the values that were clustered on in the
 clustering algorithm plus subject IDs.
-\item \code{TPSdata} The \code{TPSfit} object that was input into the function.
-\item \code{center} Logical value that was used to determine whether to center on individual
+\item \code{TPSdata }  The '\code{TPSfit}' object that was input into the function.
+\item \code{center }  Logical value that was used to determine whether to center on individual
 trajectories.
-\item \code{noise} Logical value that was used to determine whether a noise cluster is
+\item \code{noise }  Logical value that was used to determine whether a noise cluster is
 included.
-\item \code{k} The number of clusters.
-\item \code{m} The fuzziness parameter.
-\item \code{addslopes} Logical value that was used to determine whether to include the
+\item \code{k }  The number of clusters.
+\item \code{m }  The fuzziness parameter.
+\item \code{addslopes }  Logical value that was used to determine whether to include the
 slopes between fitted time-points.
-\item \code{IDmatch} A data frame matching the original subject ID with new consecutive
+\item \code{IDmatch }  A data frame matching the original subject ID with new consecutive
 ID values.
 }
 }
 \description{
 \code{cluster.fitted()} is used to apply a fuzzy c-medoids clustering algorithm to
-the fitted values that are output from the \code{TPSfit} function.
+the fitted values that are output from the \code{TPSfit()} function.
 }
 \details{
-\code{cluster.fitted()} employs package \pkg{fclust} to apply a fuzzy c-medoids
+\code{cluster.fitted()} employs package \pkg{fclust} to apply the fuzzy c-medoids
 clustering algorithm to the fitted tensor-product spline values that are
-output from the \code{TPSfit} function. The user has options of including a noise
+output from the \code{\link[=TPSfit]{TPSfit()}} function. The user has options of including a noise
 cluster and centering trajectories on the individual means. The \code{addslopes}
 option will cluster on the slopes between fitted time-points in addition to
 cross-sectional fitting at those points.
 }
 \examples{
-library(dplyr); library(tidyr); library(fclust)
 data(TS.sim)
 
 fitsplines <- TPSfit(TS.sim, vars=c("Var1", "Var2", "Var3"), time="Time",
@@ -91,7 +90,7 @@ summary(clusters1)
 \itemize{
 \item \code{\link[=cluster.coefs]{cluster.coefs()}} is an alternative method that clusters on spline
 coefficients rather than fitted values.
-\item The \code{fclust} R package: \url{https://CRAN.R-project.org/package=fclust}
+\item The \pkg{fclust} R package: \url{https://CRAN.R-project.org/package=fclust}
 \item Fuzzy k-medoids function: \code{\link[fclust:FKM.med]{fclust::FKM.med()}}
 \item Fuzzy k-medoids function with noise cluster: \code{\link[fclust:FKM.med.noise]{fclust::FKM.med.noise()}}
 }
