@@ -24,7 +24,7 @@
 )
 }
 \arguments{
-\item{x}{A object of class \code{FKM.TPS} output from \code{cluster.fitted} or \code{cluster.coefs}}
+\item{x}{A object of class '\code{FKM.TPS}' output from \code{\link[=cluster.fitted]{cluster.fitted()}} or \code{\link[=cluster.coefs]{cluster.coefs()}}}
 
 \item{center}{Logical expression indicating whether to center trajectories on individual means.}
 
@@ -48,7 +48,7 @@
 
 \item{strip_label_size}{Optional size for strip labels on graphics.}
 
-\item{type}{Type of plot to produce. Options are "mean", "smooth", "smooth_grid", "raw", "raw_grid", and "all".}
+\item{type}{Type of plot to produce. Options are \code{"mean"}, \code{"smooth"}, \code{"smooth_grid"}, \code{"raw"}, \code{"raw_grid"}, and \code{"all"}.}
 
 \item{...}{Additional arguments}
 }
@@ -59,7 +59,6 @@ A plot of the data by cluster.
 Produces a number of plots for an object of class \code{FKM.TPS} using \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}. Possible plots include mean trajectory by cluster, spaghetti plot of raw data by cluster overlaid or in grid format, and smoothed spaghetti plot by cluster overlaid or in grid format.
 }
 \examples{
-library(tidyr); library(dplyr); library(mgcv); library(fclust); library(ggplot2)
 data(TS.sim)
 
 fitsplines <- TPSfit(TS.sim, vars=c("Var1", "Var2", "Var3"), time="Time",
