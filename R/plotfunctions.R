@@ -2,7 +2,7 @@
 #'
 #' Produces a number of plots for an object of class `FKM.TPS` using [ggplot2::ggplot()]. Possible plots include mean trajectory by cluster, spaghetti plot of raw data by cluster overlaid or in grid format, and smoothed spaghetti plot by cluster overlaid or in grid format.
 #'
-#' @param x A object of class `FKM.TPS` output from `cluster.fitted` or `cluster.coefs`
+#' @param x A object of class '`FKM.TPS`' output from [cluster.fitted()] or [cluster.coefs()]
 #' @param center Logical expression indicating whether to center trajectories on individual means.
 #' @param xmin,xmax Optional minimum and maximum values to show on x-axis.
 #' @param ntime Optional number of times to calculate fitted values for smoothed plots.
@@ -14,14 +14,13 @@
 #' @param axis_title_size Optional size for axis titles.
 #' @param legend_label_size Optional size for legend.
 #' @param strip_label_size Optional size for strip labels on graphics.
-#' @param type Type of plot to produce. Options are "mean", "smooth", "smooth_grid", "raw", "raw_grid", and "all".
+#' @param type Type of plot to produce. Options are `"mean"`, `"smooth"`, `"smooth_grid"`, `"raw"`, `"raw_grid"`, and `"all"`.
 #' @param ... Additional arguments
 #'
 #' @returns A plot of the data by cluster.
 #' @export
 #'
 #' @examples
-#' library(tidyr); library(dplyr); library(mgcv); library(fclust); library(ggplot2)
 #' data(TS.sim)
 #'
 #' fitsplines <- TPSfit(TS.sim, vars=c("Var1", "Var2", "Var3"), time="Time",
@@ -55,7 +54,7 @@ plot.FKM.TPS <- function(x, center=TRUE, xmin, xmax, ntime=100, lab_x, lab_y, bw
   for (i in 1:nsubjects) {
     Id2 <- rep(i, times=ntime*numvars)
     newgraph <- cbind(Id2, graphdat)
-    newgraph$ValueS <- mgcv::predict.gam(GAMs[[i]], newgraph)
+    if (!(i %in% x$TPSdata$error_subjects)) {newgraph$ValueS <- mgcv::predict.gam(GAMs[[i]], newgraph)}
     graphvals[[i]] <- newgraph
   }
   graphdata <- dplyr::bind_rows(graphvals)
@@ -243,11 +242,11 @@ plot.FKM.TPS <- function(x, center=TRUE, xmin, xmax, ntime=100, lab_x, lab_y, bw
 }
 
 
-#' Plot an object of class `TPSfit`.
+#' Plot an object of class '`TPSfit`'.
 #'
-#' Plots an object of class `TPSfit`, with option to plot either raw or smoothed data.
+#' Plots an object of class '`TPSfit`', with option to plot either raw or smoothed data.
 #'
-#' @param x Object of class `TPSfit`.
+#' @param x Object of class '`TPSfit`'.
 #' @param center Logical expression indicating whether to center data on individual trajectories.
 #' @param xmin,xmax Optional minimum and maximum values to show on x-axis.
 #' @param ntime Optional number of times to calculate fitted values for smoothed plots.
@@ -259,14 +258,13 @@ plot.FKM.TPS <- function(x, center=TRUE, xmin, xmax, ntime=100, lab_x, lab_y, bw
 #' @param title Optional title.
 #' @param title_size Optional title size.
 #' @param bw Logical expression for black and white graphic.
-#' @param type Type of plot to produce. Options are "smooth", "raw", and "all".
+#' @param type Type of plot to produce. Options are `"smooth"`, `"raw"`, and `"all"`.
 #' @param ... Additional arguments
 #'
 #' @returns A plot of the raw or smoothed data.
 #' @export
 #'
 #' @examples
-#' library(tidyr); library(dplyr); library(mgcv); library(ggplot2)
 #' data(TS.sim)
 #'
 #' fitsplines <- TPSfit(TS.sim, vars=c("Var1", "Var2", "Var3"), time="Time",
@@ -295,7 +293,7 @@ plot.TPSfit <- function(x, center=TRUE, xmin, xmax, ntime=100, lab_x, lab_y, bw=
   for (i in 1:nsubjects) {
     Id2 <- rep(i, times=ntime*numvars)
     newgraph <- cbind(Id2, graphdat)
-    newgraph$ValueS <- mgcv::predict.gam(GAMs[[i]], newgraph)
+    if (!(i %in% x$error_subjects)) {newgraph$ValueS <- mgcv::predict.gam(GAMs[[i]], newgraph)}
     graphvals[[i]] <- newgraph
   }
   graphdata <- dplyr::bind_rows(graphvals)
@@ -374,9 +372,9 @@ plot.TPSfit <- function(x, center=TRUE, xmin, xmax, ntime=100, lab_x, lab_y, bw=
 }
 
 
-#' Plot an object of class `FKM.predicted`
+#' Plot an object of class '`FKM.predicted`'
 #'
-#' @param x An object of class `FKM.predicted`
+#' @param x An object of class '`FKM.predicted`'
 #' @param center Logical expression indicating whether trajectories are centered
 #'   on individual means.
 #' @param xmin,xmax Optional minimum and maximum values to show on x-axis.
@@ -390,15 +388,14 @@ plot.TPSfit <- function(x, center=TRUE, xmin, xmax, ntime=100, lab_x, lab_y, bw=
 #' @param axis_title_size Optional size for axis titles.
 #' @param legend_label_size Optional size for legend.
 #' @param strip_label_size Optional size for strip labels on graphics.
-#' @param type Type of plot to produce. Options are "raw", "raw_grid", "smooth",
-#'   and "smooth_grid".
+#' @param type Type of plot to produce. Options are `"raw"`, `"raw_grid"`, `"smooth"`,
+#'   and `"smooth_grid"`.
 #' @param ... Additional arguments
 #'
 #' @returns A plot of raw or smoothed trajectories for new data by predicted cluster assignment.
 #' @export
 #'
 #' @examples
-#' library(tidyr); library(dplyr); library(mgcv); library(fclust); library(ggplot2)
 #' data(TS.sim)
 #'
 #' fitsplines <- TPSfit(TS.sim, vars=c("Var1", "Var2", "Var3"), time="Time",
@@ -432,7 +429,7 @@ plot.FKM.predicted <- function(x, center=TRUE, xmin, xmax, ntime=100, lab_x,
   for (i in x$wide_data$Id2) {
     Id2 <- rep(i, times=ntime*numvars)
     newgraph <- cbind(Id2, graphdat)
-    newgraph$ValueS <- mgcv::predict.gam(GAMs[[i]], newgraph)
+    if (!(i %in% x$FKM_TPS$TPSdata$error_subjects)) {newgraph$ValueS <- mgcv::predict.gam(GAMs[[i]], newgraph)}
     graphvals[[i]] <- newgraph
   }
   graphdata <- dplyr::bind_rows(graphvals)
@@ -594,11 +591,11 @@ plot.FKM.predicted <- function(x, center=TRUE, xmin, xmax, ntime=100, lab_x,
 }
 
 
-#' Plot glm that uses clusters as predictors
+#' Plot a GLM that uses clusters as predictors
 #'
 #' Employs the `plot.glm` function to plot the generalized linear model with clusters and additional covariates as predictors.
 #'
-#' @param x The output object of class `FKM.glm`.
+#' @param x The output object of class '`FKM.glm`'.
 #' @param ... Additional arguments.
 #'
 #' @return A `plot.glm` plot.
