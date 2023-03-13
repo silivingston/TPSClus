@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotfunctions.R
 \name{plot.TPSfit}
 \alias{plot.TPSfit}
-\title{Plot an object of class \code{TPSfit}.}
+\title{Plot an object of class '\code{TPSfit}'.}
 \usage{
 \method{plot}{TPSfit}(
   x,
@@ -24,7 +24,7 @@
 )
 }
 \arguments{
-\item{x}{Object of class \code{TPSfit}.}
+\item{x}{Object of class '\code{TPSfit}'.}
 
 \item{center}{Logical expression indicating whether to center data on individual trajectories.}
 
@@ -48,7 +48,7 @@
 
 \item{strip_label_size}{Optional size for strip labels on graphics.}
 
-\item{type}{Type of plot to produce. Options are "smooth", "raw", and "all".}
+\item{type}{Type of plot to produce. Options are \code{"smooth"}, \code{"raw"}, and \code{"all"}.}
 
 \item{...}{Additional arguments}
 }
@@ -56,10 +56,9 @@
 A plot of the raw or smoothed data.
 }
 \description{
-Plots an object of class \code{TPSfit}, with option to plot either raw or smoothed data.
+Plots an object of class '\code{TPSfit}', with option to plot either raw or smoothed data.
 }
 \examples{
-library(tidyr); library(dplyr); library(mgcv); library(ggplot2)
 data(TS.sim)
 
 fitsplines <- TPSfit(TS.sim, vars=c("Var1", "Var2", "Var3"), time="Time",
