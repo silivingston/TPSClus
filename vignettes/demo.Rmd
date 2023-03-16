@@ -129,7 +129,7 @@ fitsplines1 <- TPSfit(TS.sim, vars=c("Var1", "Var2", "Var3"), time="Time", ID="S
 print(fitsplines1)
 ```
 
-Splines were fit for all of the 150 subjects. The `GAMsfitted` dataset contains fitted spline values at the knots, and the `GAMScoef` dataset contains the spline coefficients. By default, the function standardizes each of the variables in order to equalize the multivariate data so that all variables are on the same scale `RN283`. For each individual, the mean of each trajectory is also produced, along with values centered on the individual mean. These can be seen in the `GAMsfitted` dataset:
+Splines were fit for all of the 150 subjects. The `GAMsfitted` dataset contains fitted spline values at the knots, and the `GAMScoef` dataset contains the spline coefficients. By default, the function standardizes each of the variables in order to equalize the multivariate data so that all variables are on the same scale [@RN283]. For each individual, the mean of each trajectory is also produced, along with values centered on the individual mean. These can be seen in the `GAMsfitted` dataset:
 ```{r GAMsfitted}
 head(fitsplines1$GAMsfitted)
 ```
